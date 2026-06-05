@@ -24,6 +24,10 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html {
+    scroll-behavior: smooth; /* Permite el desplazamiento suave hacia el footer */
+  }
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
@@ -40,13 +44,13 @@
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Alineación ajustada para los botones */
+    align-items: flex-start; /* Alineado arriba para acomodar la columna derecha */
     flex-wrap: wrap;
     gap: 2rem;
   }
 
   .header-left h1 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: clamp(2rem, 4vw, 3.2rem);
     line-height: 1.1;
@@ -68,29 +72,54 @@
     max-width: 750px;
   }
 
-  /* LINKS DE AUTOR */
+  /* HEADER DERECHO: VERTICAL Y ORGANIZADO */
   .header-right {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 0.3rem;
   }
 
-  .author-link {
+  .event-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .event-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .header-links-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .simple-link {
     text-decoration: none;
     color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+    cursor: pointer;
   }
 
-  .author-link:hover {
-    background: var(--text);
-    color: var(--surface);
-    border-color: var(--text);
+  .simple-link:hover {
+    color: var(--accent);
   }
 
   /* INTERACTIVE MAP SECTION */
@@ -109,7 +138,7 @@
     flex: 1;
     padding: 1.2rem;
     text-align: center;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--muted);
@@ -120,31 +149,17 @@
   }
   .map-tab:last-child { border-right: none; }
   
-  .map-tab:hover {
-    background: var(--surface);
-    color: var(--text);
-  }
-
-  .map-tab.active {
-    background: var(--surface);
-    color: var(--text);
-    border-bottom: 3px solid var(--text);
-  }
-  .map-tab.active[data-index="2"] {
-    border-bottom: 3px solid var(--accent);
-    color: var(--accent);
-  }
+  .map-tab:hover { background: var(--surface); color: var(--text); }
+  .map-tab.active { background: var(--surface); color: var(--text); border-bottom: 3px solid var(--text); }
+  .map-tab.active[data-index="2"] { border-bottom: 3px solid var(--accent); color: var(--accent); }
 
   .map-panes {
     padding: 3rem 4rem;
     min-height: 500px;
   }
 
-  .map-pane {
-    display: none;
-  }
+  .map-pane { display: none; }
 
-  /* NUEVA ANIMACIÓN: BLUR SIN MOVIMIENTO */
   .map-pane.active {
     display: grid;
     grid-template-columns: 1fr 1.5fr; 
@@ -158,14 +173,17 @@
     to { opacity: 1; filter: blur(0); }
   }
 
+  /* CONTENEDOR DE TEXTO Y LEYENDA CENTRADO */
   .map-text-content {
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Centra todo el bloque verticalmente */
     height: 100%;
+    padding-right: 1rem;
   }
 
   .map-step {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -175,7 +193,7 @@
   }
 
   .map-pane h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.8rem;
     margin-bottom: 1rem;
     color: var(--text);
@@ -184,12 +202,12 @@
   .map-pane p {
     font-size: 1rem;
     color: var(--muted);
-    margin-bottom: 2.5rem;
     line-height: 1.7;
   }
 
+  /* WRAPPER DE LEYENDA (Unido al bloque) */
   .map-scale-wrapper {
-    margin-top: auto;
+    margin-top: 2rem;
     padding-top: 2rem;
     border-top: 1px solid var(--border);
   }
@@ -208,7 +226,7 @@
     font-weight: 500;
   }
 
-  /* LEYENDA DE CÍRCULOS (Burbujas) */
+  /* LEYENDA DE CÍRCULOS ALINEADA */
   .circle-legend {
     display: flex;
     flex-direction: column;
@@ -226,29 +244,32 @@
     color: var(--muted);
   }
 
+  .circle-wrap {
+    width: 25px; /* Define el ancho fijo para que el texto comience siempre en la misma posición */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
   .circle-small {
-    width: 8px; 
-    height: 8px;
+    width: 8px; height: 8px;
     border-radius: 50%;
     background: rgba(43, 41, 39, 0.2);
     border: 1.5px solid var(--text);
-    flex-shrink: 0;
   }
 
   .circle-large {
-    width: 22px; 
-    height: 22px;
+    width: 22px; height: 22px;
     border-radius: 50%;
     background: rgba(43, 41, 39, 0.2);
     border: 1.5px solid var(--text);
-    flex-shrink: 0;
   }
 
-  /* IMAGEN CON TAMAÑO FIJO Y PROPORCIONAL */
   .map-image {
     width: 100%;
-    max-height: 60vh; /* Máximo 60% del alto de la pantalla */
-    object-fit: contain; /* Mantiene la proporción sin deformarse */
+    max-height: 60vh;
+    object-fit: contain;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.03);
   }
@@ -261,7 +282,7 @@
   }
 
   .section-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.8rem;
     margin-bottom: 2rem;
     color: var(--text);
@@ -292,7 +313,7 @@
   }
 
   .info-card h4 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.2rem;
     color: var(--accent);
     margin-bottom: 1rem;
@@ -349,7 +370,7 @@
   .action-step:nth-child(4) { border-top-color: var(--accent); }
 
   .action-step h5 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.1rem;
     margin-bottom: 0.8rem;
   }
@@ -366,18 +387,22 @@
     border-top: 1px solid var(--border);
     text-align: center;
     color: var(--muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 
   .footer-links {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 2rem;
   }
 
   @media (max-width: 1000px) {
     header { padding: 2rem; flex-direction: column; align-items: flex-start; }
+    .header-right { width: 100%; align-items: flex-start; text-align: left; margin-top: 1rem; }
+    .header-links-vertical { align-items: flex-start; }
     .map-pane.active { grid-template-columns: 1fr; gap: 2rem; }
     .map-tabs { flex-direction: column; }
     .map-tab { border-right: none; border-bottom: 1px solid var(--border); }
@@ -395,9 +420,14 @@
     <div class="subtitle">Más allá de la cuota, un mapa para la inclusión real.</div>
     <p>Estrategia basada en datos georreferenciados para transformar el ecosistema laboral del Estado, conectando a Entidades Públicas con el talento de Personas con Discapacidad (PcD) disponible en su territorio.</p>
   </div>
+  
   <div class="header-right">
-    <a href="URL_LINKEDIN" class="author-link" target="_blank">LinkedIn</a>
-    <a href="URL_GITHUB" class="author-link" target="_blank">Repositorio GitHub</a>
+    <div class="event-title">#GeotónPerú2026</div>
+    <div class="event-subtitle">Cat 4: Territorio Inclusivo</div>
+    <div class="header-links-vertical">
+      <a href="LINK_GITHUB" class="simple-link" target="_blank">💻 Repositorio GitHub</a>
+      <a href="#autores-footer" class="simple-link">👥 Autores</a>
+    </div>
   </div>
 </header>
 
@@ -411,11 +441,10 @@
   <div class="map-panes">
     <div class="map-pane active" id="pane-0">
       <div class="map-text-content">
-        <div>
-          <div class="map-step">Paso 1: El Síntoma</div>
-          <h3>Mapa de Cobertura</h3>
-          <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
-        </div>
+        <div class="map-step">Paso 1: El Síntoma</div>
+        <h3>Mapa de Cobertura</h3>
+        <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
+        
         <div class="map-scale-wrapper">
           <div class="scale-bar" style="background: linear-gradient(to right, #d73027, #fdae61, #ffffbf, #a6d96a, #1a9850)"></div>
           <div class="scale-labels">
@@ -424,12 +453,12 @@
           </div>
           <div class="circle-legend">
             <div class="legend-item">
-              <div class="circle-small"></div>
-              <span>Pocos empleados faltantes en dicha entidad pública</span>
+              <div class="circle-wrap"><div class="circle-small"></div></div>
+              <span>Poco talento o trabajadores PcD faltantes en dicha entidad pública</span>
             </div>
             <div class="legend-item">
-              <div class="circle-large"></div>
-              <span>Muchos empleados faltantes en dicha entidad pública</span>
+              <div class="circle-wrap"><div class="circle-large"></div></div>
+              <span>Mucho talento o trabajadores PcD faltantes en dicha entidad pública</span>
             </div>
           </div>
         </div>
@@ -439,11 +468,10 @@
 
     <div class="map-pane" id="pane-1">
       <div class="map-text-content">
-        <div>
-          <div class="map-step">Paso 2: El Talento</div>
-          <h3>Mapa de Viabilidad</h3>
-          <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</p>
-        </div>
+        <div class="map-step">Paso 2: El Talento</div>
+        <h3>Mapa de Viabilidad</h3>
+        <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</p>
+        
         <div class="map-scale-wrapper">
           <div class="scale-bar" style="background: linear-gradient(to right, #eaf2ee, #a3c9b7, #5c9e81, #2b6b4d, #163d2b)"></div>
           <div class="scale-labels">
@@ -452,12 +480,12 @@
           </div>
           <div class="circle-legend">
             <div class="legend-item">
-              <div class="circle-small"></div>
-              <span>Pocos empleados faltantes en dicha entidad pública</span>
+              <div class="circle-wrap"><div class="circle-small"></div></div>
+              <span>Poco talento o trabajadores PcD faltantes en dicha entidad pública</span>
             </div>
             <div class="legend-item">
-              <div class="circle-large"></div>
-              <span>Muchos empleados faltantes en dicha entidad pública</span>
+              <div class="circle-wrap"><div class="circle-large"></div></div>
+              <span>Mucho talento o trabajadores PcD faltantes en dicha entidad pública</span>
             </div>
           </div>
         </div>
@@ -467,11 +495,10 @@
 
     <div class="map-pane" id="pane-2">
       <div class="map-text-content">
-        <div>
-          <div class="map-step" style="color: var(--accent);">Paso 3: La Acción</div>
-          <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
-          <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
-        </div>
+        <div class="map-step" style="color: var(--accent);">Paso 3: La Acción</div>
+        <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
+        <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
+        
         <div class="map-scale-wrapper">
           <div class="scale-bar" style="background: linear-gradient(to right, #fae9e8, #f0b9b4, #e6857d, #d1493b, #8a2a20)"></div>
           <div class="scale-labels">
@@ -480,12 +507,12 @@
           </div>
           <div class="circle-legend">
             <div class="legend-item">
-              <div class="circle-small"></div>
-              <span>Pocos empleados faltantes en dicha entidad pública</span>
+              <div class="circle-wrap"><div class="circle-small"></div></div>
+              <span>Poco talento o trabajadores PcD faltantes en dicha entidad pública</span>
             </div>
             <div class="legend-item">
-              <div class="circle-large"></div>
-              <span>Muchos empleados faltantes en dicha entidad pública</span>
+              <div class="circle-wrap"><div class="circle-large"></div></div>
+              <span>Mucho talento o trabajadores PcD faltantes en dicha entidad pública</span>
             </div>
           </div>
         </div>
@@ -550,11 +577,14 @@
 
 </div>
 
-<footer>
-  <p>Propuesta elaborada para la Geotón Perú 2026. <br>Basado en datos de CONADIS en visor Geo Perú.</p>
+<footer id="autores-footer">
+  <p>Propuesta elaborada para la Geotón Perú 2026. <br>Análisis realizado con datos publicados por CONADIS / GEO PERÚ, bajo la Ley de Datos Abiertos del Gobierno Peruano.</p>
+  
   <div class="footer-links">
-    <a href="URL_LINKEDIN" class="author-link" target="_blank">LinkedIn</a>
-    <a href="URL_GITHUB" class="author-link" target="_blank">Repositorio GitHub</a>
+    <a href="LINK_LINKEDIN_1" class="simple-link" target="_blank">💼 Autor 1</a>
+    <a href="LINK_LINKEDIN_2" class="simple-link" target="_blank">💼 Autor 2</a>
+    <a href="LINK_LINKEDIN_3" class="simple-link" target="_blank">💼 Autor 3</a>
+    <a href="LINK_GITHUB" class="simple-link" target="_blank">💻 Repositorio GitHub</a>
   </div>
 </footer>
 
@@ -565,7 +595,7 @@
   
   let currentIndex = 0;
   let carouselInterval = null;
-  const TIME_PER_SLIDE = 8000; // 8 segundos exactos
+  const TIME_PER_SLIDE = 8000;
 
   function showMap(index) {
     tabs.forEach(tab => tab.classList.remove('active'));
@@ -581,7 +611,6 @@
     showMap(nextIndex);
   }
 
-  // Lógica de carrusel limpia: solo un intervalo activo a la vez
   function startCarousel() {
     if (!carouselInterval) {
       carouselInterval = setInterval(nextMap, TIME_PER_SLIDE);
@@ -593,20 +622,15 @@
     carouselInterval = null;
   }
 
-  // Cuando el mouse entra en toda la sección, se detiene la rotación automática
   interactiveSection.addEventListener('mouseenter', stopCarousel);
-  // Cuando sale, se reanuda
   interactiveSection.addEventListener('mouseleave', startCarousel);
 
-  // Al pasar el mouse sobre una pestaña en específico, cambia al mapa,
-  // pero ya no reinicia agresivamente el timer (porque está pausado).
   tabs.forEach((tab, index) => {
     tab.addEventListener('mouseenter', () => {
       showMap(index);
     });
   });
 
-  // Iniciar el carrusel automáticamente al cargar
   startCarousel();
 </script>
 

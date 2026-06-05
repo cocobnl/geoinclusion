@@ -81,14 +81,16 @@ the gap is largest and where it is most feasible to close.
 ## Repository Structure
 
 ```
-disability-employment-quota-peru/
+geoinclusion/
 ├── data/                   # Raw .dbf files (not tracked — see .gitignore)
+├── docs/                   # Reports
+│   └── Propuesta_de_Solucion.pdf
 ├── img/                    # Generated maps and charts (tracked)
 │   ├── mapa_IDX_COBERTURA.png
 │   ├── mapa_IDX_VIABILIDAD.png
 │   └── mapa_IDX_PRIORIDAD.png
-├── notebooks/
-│   └── geoton_2026_clean.ipynb   # Main analysis notebook
+├── notebooks/              # Main analysis notebook
+│   └── notebooks/analisis_cuota_empleo_pcd_geoperu.ipynb   
 ├── .gitignore
 ├── index.html              # Interactive dashboard (GitHub Pages)
 ├── README.md

@@ -132,7 +132,7 @@ scarcity of candidates.
 
 An interactive version of the results is published via GitHub Pages:
 
-**[LINK_GITHUB_PAGES]**
+**[[View the Geoinclusion Dashboard]]([url](https://cocobnl.github.io/geoinclusion/))**
 
 ---
 
@@ -184,7 +184,7 @@ An interactive version of the results is published via GitHub Pages:
 Analytical proposals and policy recommendations derived from this work are
 presented in a separate document:
 
-**[LINK_REPORTE_COMPLETO]**
+**[Read the full Proposals and Policy Recommendations Report (PDF)](docs/Propuesta_de_Solucion.pdf)**
 
 ---
 
@@ -228,13 +228,19 @@ jupyter notebook notebooks/geoton_2026_clean.ipynb
 
 ---
 
-## Author
+## Authors
 
-**[Your Name]**
-Data Analyst · Data Scientist
+**Coco Benel**
+Computational Physicist · Data Analyst · Data Scientist
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://linkedin.com/in/your-profile)
-[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/your-username)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://linkedin.com/in/coco-bnl)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/cocobnl)
+
+**Junior Alegre**
+Computational Physicist · Data Analyst · Data Scientist
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://linkedin.com/in/jalegres)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/jalegres)
 
 ---
 

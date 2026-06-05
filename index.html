@@ -3,22 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PCD & Empleo Público — Perú 2023</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<title>GeoInclusión Pública — Plan de Acción 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #0e1117;
-    --surface:   #161b27;
-    --surface2:  #1e2535;
-    --border:    #2a3347;
-    --accent:    #e8c547;
-    --accent2:   #5bc8af;
-    --accent3:   #e86b5f;
-    --text:      #eef0f4;
-    --muted:     #7a8499;
-    --red:       #e86b5f;
-    --yellow:    #e8c547;
-    --green:     #5bc87a;
+    /* Paleta Beige / Clara y elegante */
+    --bg:        #f7f5f0;
+    --surface:   #ffffff;
+    --surface2:  #eae6db;
+    --border:    #dcd7cc;
+    --accent:    #d1493b; /* Rojo prioritario */
+    --accent2:   #34825d; /* Verde viabilidad */
+    --accent3:   #e09e36; /* Amarillo cobertura */
+    --text:      #2b2927;
+    --muted:     #6a6660;
+    --red:       #d1493b;
+    --yellow:    #e09e36;
+    --green:     #34825d;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,795 +30,367 @@
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
-  }
-
-  /* GRAIN OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.4;
+    line-height: 1.6;
   }
 
   /* HEADER */
   header {
     padding: 3rem 4rem 2rem;
+    background: var(--surface);
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  header::after {
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(232,197,71,0.08) 0%, transparent 70%);
-    pointer-events: none;
   }
 
   .header-left h1 {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
     line-height: 1.1;
-    letter-spacing: -0.02em;
+    color: var(--text);
   }
 
   .header-left h1 span { color: var(--accent); }
 
   .header-left p {
-    margin-top: 0.6rem;
+    margin-top: 0.8rem;
     color: var(--muted);
-    font-size: 0.95rem;
-    font-weight: 300;
-    max-width: 520px;
-    line-height: 1.6;
-  }
-
-  .header-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.4rem;
-    flex-shrink: 0;
+    font-size: 1.05rem;
+    max-width: 700px;
   }
 
   .tag {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 0.3rem 0.75rem;
+    padding: 0.4rem 0.8rem;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-  }
-
-  .tag.highlight { border-color: var(--accent); color: var(--accent); }
-
-  /* NARRATIVE STEPS */
-  .narrative {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .step {
-    padding: 2rem 2.5rem;
-    border-right: 1px solid var(--border);
-    position: relative;
-    transition: background 0.3s;
-    cursor: default;
-  }
-
-  .step:last-child { border-right: none; }
-  .step:hover { background: var(--surface); }
-
-  .step-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 800;
-    line-height: 1;
-    opacity: 0.12;
-    position: absolute;
-    top: 1.2rem; right: 1.5rem;
-    letter-spacing: -0.04em;
-  }
-
-  .step-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-
-  .step h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: 0.5rem;
-  }
-
-  .step p {
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  .step-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-  }
-
-  /* KPI STRIP */
-  .kpi-strip {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .kpi {
-    padding: 1.8rem 2rem;
-    border-right: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .kpi:last-child { border-right: none; }
-
-  .kpi::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-  }
-
-  .kpi.red::before   { background: var(--red); }
-  .kpi.yellow::before { background: var(--yellow); }
-  .kpi.green::before  { background: var(--green); }
-  .kpi.blue::before   { background: var(--accent2); }
-  .kpi.white::before  { background: var(--text); }
-
-  .kpi-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 0.4rem;
-    font-weight: 500;
-  }
-
-  .kpi-value {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-
-  .kpi-value.red    { color: var(--red); }
-  .kpi-value.yellow { color: var(--yellow); }
-  .kpi-value.green  { color: var(--green); }
-  .kpi-value.blue   { color: var(--accent2); }
-
-  .kpi-sub {
-    margin-top: 0.3rem;
-    font-size: 0.78rem;
-    color: var(--muted);
-    font-weight: 300;
-  }
-
-  /* MAIN CONTENT */
-  .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .panel {
-    padding: 2.5rem;
-    border-right: 1px solid var(--border);
-  }
-
-  .panel:last-child { border-right: none; }
-  .panel:nth-child(3), .panel:nth-child(4) {
-    border-top: 1px solid var(--border);
-  }
-
-  .panel-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin-bottom: 1.2rem;
+    color: var(--text);
     font-weight: 600;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* NOTE BAR */
+  .note-bar {
+    background: var(--surface2);
+    padding: 0.8rem 4rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .panel-title::before {
-    content: '';
-    width: 16px; height: 2px;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  /* INDEX CARDS */
-  .idx-grid {
+  /* MAP SECTION */
+  .map-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .idx-card {
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--border);
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.2rem 1.4rem;
+  }
+
+  .map-card {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--border);
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    transition: border-color 0.2s, transform 0.2s;
-    cursor: default;
+    flex-direction: column;
   }
+  .map-card:last-child { border-right: none; }
 
-  .idx-card:hover {
-    border-color: var(--accent);
-    transform: translateX(4px);
-  }
-
-  .idx-icon {
-    width: 40px; height: 40px;
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-
-  .idx-body h4 {
+  .map-step {
     font-family: 'Syne', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-  }
-
-  .idx-body p {
     font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--muted);
-    line-height: 1.5;
-    font-weight: 300;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
   }
 
-  .idx-formula {
-    margin-top: 0.5rem;
-    font-family: 'DM Sans', monospace;
-    font-size: 0.72rem;
-    color: var(--accent);
-    background: rgba(232,197,71,0.08);
-    border: 1px solid rgba(232,197,71,0.2);
-    border-radius: 4px;
-    padding: 0.3rem 0.6rem;
-    display: inline-block;
+  .map-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
   }
 
-  /* SCALE BAR */
-  .scale-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 0.8rem;
+  .map-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    min-height: 65px;
   }
 
+  .map-image {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  /* SCALE BARS */
   .scale-bar {
-    flex: 1;
-    height: 8px;
-    border-radius: 4px;
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
   }
-
   .scale-labels {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.3rem;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--muted);
-  }
-
-  /* BAR CHART */
-  .bar-list { display: flex; flex-direction: column; gap: 0.8rem; }
-
-  .bar-item {}
-
-  .bar-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.3rem;
-    font-size: 0.78rem;
-  }
-
-  .bar-name { color: var(--text); font-weight: 400; }
-  .bar-val  { color: var(--muted); font-family: 'Syne', sans-serif; font-size: 0.82rem; }
-
-  .bar-track {
-    height: 6px;
-    background: var(--surface2);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* METHODOLOGY */
-  .method-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-  }
-
-  .method-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1rem;
-  }
-
-  .method-item h5 {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    margin-bottom: 0.4rem;
-    color: var(--accent2);
-  }
-
-  .method-item p {
-    font-size: 0.76rem;
-    color: var(--muted);
-    line-height: 1.5;
-    font-weight: 300;
-  }
-
-  /* ENTITY TABLE */
-  .table-wrap {
-    overflow-x: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.78rem;
-  }
-
-  thead tr {
-    border-bottom: 1px solid var(--border);
-  }
-
-  th {
-    text-align: left;
-    padding: 0.6rem 0.8rem;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  td {
-    padding: 0.6rem 0.8rem;
-    border-bottom: 1px solid rgba(42,51,71,0.5);
-    vertical-align: middle;
-  }
-
-  tr:last-child td { border-bottom: none; }
-
-  tr:hover td { background: var(--surface); }
-
-  .pill {
-    display: inline-block;
-    padding: 0.15rem 0.5rem;
-    border-radius: 3px;
-    font-size: 0.7rem;
     font-weight: 500;
   }
 
-  .pill.red    { background: rgba(232,107,95,0.15);  color: var(--red); }
-  .pill.green  { background: rgba(91,200,122,0.15);  color: var(--green); }
-  .pill.yellow { background: rgba(232,197,71,0.15);  color: var(--yellow); }
-
-  /* ALERT BOX */
-  .alert {
-    margin: 0 4rem 0;
-    border: 1px solid rgba(232,197,71,0.3);
-    background: rgba(232,197,71,0.05);
-    border-radius: 8px;
-    padding: 1.2rem 1.6rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
+  /* PROPOSAL SECTION */
+  .proposal-container {
+    padding: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  .alert-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
-
-  .alert-body h4 {
+  .section-title {
     font-family: 'Syne', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 0.3rem;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .alert-body p {
-    font-size: 0.8rem;
+  .section-title::before {
+    content: '';
+    width: 24px; height: 3px;
+    background: var(--accent);
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  }
+
+  .info-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .info-card h4.green { color: var(--green); }
+  .info-card h4.yellow { color: var(--yellow); }
+
+  .info-card p {
+    font-size: 0.95rem;
     color: var(--muted);
-    line-height: 1.6;
-    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .info-card ul {
+    list-style: none;
+    margin-top: 1rem;
+  }
+
+  .info-card ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .info-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  /* ACTION PLAN */
+  .action-plan {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .action-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--text);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .action-step:nth-child(1) { border-top-color: var(--accent3); }
+  .action-step:nth-child(2) { border-top-color: var(--accent2); }
+  .action-step:nth-child(3) { border-top-color: var(--text); }
+  .action-step:nth-child(4) { border-top-color: var(--accent); }
+
+  .action-step h5 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .action-step p {
+    font-size: 0.85rem;
+    color: var(--muted);
   }
 
   /* FOOTER */
   footer {
     padding: 2rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: var(--surface);
     border-top: 1px solid var(--border);
-    gap: 2rem;
-  }
-
-  footer p {
-    font-size: 0.75rem;
+    text-align: center;
     color: var(--muted);
-    font-weight: 300;
-    line-height: 1.6;
+    font-size: 0.85rem;
   }
 
-  footer .sources {
-    display: flex;
-    gap: 1rem;
-    flex-shrink: 0;
-  }
-
-  footer .src-tag {
-    font-size: 0.7rem;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.25rem 0.6rem;
-    white-space: nowrap;
-  }
-
-  /* FULL WIDTH PANEL */
-  .full-panel {
-    padding: 2.5rem 2.5rem;
-    border-bottom: 1px solid var(--border);
-    grid-column: 1 / -1;
-  }
-
-  .content-3col {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-up {
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-  }
-
-  .fade-up:nth-child(1) { animation-delay: 0.1s; }
-  .fade-up:nth-child(2) { animation-delay: 0.2s; }
-  .fade-up:nth-child(3) { animation-delay: 0.3s; }
-  .fade-up:nth-child(4) { animation-delay: 0.4s; }
-  .fade-up:nth-child(5) { animation-delay: 0.5s; }
-
-  @media (max-width: 900px) {
-    header { flex-direction: column; align-items: flex-start; padding: 2rem; }
-    .narrative, .kpi-strip, .content, .content-3col { grid-template-columns: 1fr; }
-    .step, .kpi, .panel { border-right: none; border-bottom: 1px solid var(--border); }
-    .method-grid { grid-template-columns: 1fr; }
-    .alert { margin: 0 1rem; }
-    footer { flex-direction: column; align-items: flex-start; }
+  @media (max-width: 1000px) {
+    .map-grid, .card-grid, .action-plan { grid-template-columns: 1fr; }
+    .map-card { border-right: none; border-bottom: 1px solid var(--border); }
+    header { padding: 2rem; flex-direction: column; align-items: flex-start; }
+    .note-bar, .proposal-container { padding: 2rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-left fade-up">
-    <h1>Empleo PCD<br><span>en el Sector Público</span></h1>
-    <p>Análisis del cumplimiento de la cuota obligatoria del 5% de trabajadores con discapacidad en entidades públicas peruanas, y la disponibilidad territorial de PCD en edad de trabajar.</p>
-  </div>
-  <div class="header-right fade-up">
-    <span class="tag highlight">Ley N° 29973</span>
-    <span class="tag">Perú · 2023 – 2024</span>
-    <span class="tag">143 entidades evaluadas</span>
+  <div class="header-left">
+    <span class="tag">GeoInclusión Pública</span>
+    <h1>Más allá de la cuota,<br><span>un mapa para la inclusión real.</span></h1>
+    <p>Estrategia basada en datos georreferenciados para transformar el ecosistema laboral del Estado, conectando a Entidades Públicas con el talento de Personas con Discapacidad (PCD) disponible en su territorio.</p>
   </div>
 </header>
 
-<!-- NARRATIVE STEPS -->
-<div class="narrative">
-  <div class="step fade-up">
-    <div class="step-num">01</div>
-    <div class="step-dot" style="background:#e86b5f"></div>
-    <div class="step-label">Paso 1 — Diagnóstico</div>
-    <h3>¿Quién cumple la cuota del 5%?</h3>
-    <p>Evaluamos 143 entidades públicas: gobiernos regionales, municipalidades y otras entidades. La gran mayoría no alcanza el mínimo legal.</p>
-  </div>
-  <div class="step fade-up">
-    <div class="step-num">02</div>
-    <div class="step-dot" style="background:#5bc8af"></div>
-    <div class="step-label">Paso 2 — Oferta laboral</div>
-    <h3>¿Dónde hay PCD que pueda trabajar?</h3>
-    <p>Cruzamos datos de población PCD por grupo de edad y nivel de discapacidad. Solo consideramos discapacidad leve o moderada en personas de 18–59 años.</p>
-  </div>
-  <div class="step fade-up">
-    <div class="step-num">03</div>
-    <div class="step-dot" style="background:#e8c547"></div>
-    <div class="step-label">Paso 3 — Lo accionable</div>
-    <h3>¿Dónde intervenir primero?</h3>
-    <p>Identificamos entidades que incumplen la cuota <em>y</em> tienen oferta PCD disponible en su distrito. Son las de mayor impacto potencial inmediato.</p>
-  </div>
+<div class="note-bar">
+  <strong>💡 Nota Visual:</strong> En todos los mapas presentados a continuación, el tamaño de los círculos es proporcional a la cantidad total de empleados de cada entidad pública.
 </div>
 
-<!-- KPI STRIP -->
-<div class="kpi-strip">
-  <div class="kpi red fade-up">
-    <div class="kpi-label">Entidades evaluadas</div>
-    <div class="kpi-value red">143</div>
-    <div class="kpi-sub">4 tipos de entidad pública</div>
+<div class="map-grid">
+  
+  <div class="map-card">
+    <div class="map-step">Paso 1: El Síntoma</div>
+    <h3>Mapa de Cobertura</h3>
+    <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
+    
+    <img src="mapa_IDX_COBERTURA.jpg" alt="Mapa de Cobertura" class="map-image">
+    
+    <div class="scale-bar" style="background: linear-gradient(to right, #d1493b, #e09e36, #34825d)"></div>
+    <div class="scale-labels">
+      <span>0% Cumplimiento</span>
+      <span>100% Cumplimiento</span>
+    </div>
   </div>
-  <div class="kpi red fade-up">
-    <div class="kpi-label">Incumplimiento cuota 5%</div>
-    <div class="kpi-value red">~95%</div>
-    <div class="kpi-sub">No alcanzan el mínimo legal</div>
+
+  <div class="map-card">
+    <div class="map-step">Paso 2: El Talento</div>
+    <h3>Mapa de Viabilidad</h3>
+    <p>Desmiente el mito de la "ausencia de talento". Muestra las zonas (distritos) donde existe una alta concentración de Personas con Discapacidad en edad productiva.</p>
+    
+    <img src="mapa_IDX_VIABILIDAD.jpg" alt="Mapa de Viabilidad" class="map-image">
+    
+    <div class="scale-bar" style="background: linear-gradient(to right, #eaf2ee, #a3c9b7, #5c9e81, #2b6b4d, #163d2b)"></div>
+    <div class="scale-labels">
+      <span>Sin oferta local</span>
+      <span>Alta oferta de talento</span>
+    </div>
   </div>
-  <div class="kpi blue fade-up">
-    <div class="kpi-label">PCD_PEA disponible</div>
-    <div class="kpi-value blue">PCD L1+L2</div>
-    <div class="kpi-sub">Discapacidad leve/moderada, 18–59 años</div>
+
+  <div class="map-card" style="background: #fffcfb;">
+    <div class="map-step" style="color: var(--accent);">Paso 3: La Acción (Cruce Estratégico)</div>
+    <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
+    <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
+    
+    <img src="mapa_IDX_PRIORIDAD.jpg" alt="Mapa de Prioridad" class="map-image">
+    
+    <div class="scale-bar" style="background: linear-gradient(to right, #fae9e8, #f0b9b4, #e6857d, #d1493b, #8a2a20)"></div>
+    <div class="scale-labels">
+      <span>Baja prioridad</span>
+      <span>Intervención Inmediata</span>
+    </div>
   </div>
-  <div class="kpi yellow fade-up">
-    <div class="kpi-label">Cuota legal obligatoria</div>
-    <div class="kpi-value yellow">5%</div>
-    <div class="kpi-sub">Del total de trabajadores</div>
-  </div>
-  <div class="kpi green fade-up">
-    <div class="kpi-label">Fuentes de datos</div>
-    <div class="kpi-value green">2</div>
-    <div class="kpi-sub">DFS 2023 · DPRIPD Set 2024</div>
-  </div>
+
 </div>
 
-<!-- INDICES SECTION -->
-<div class="content-3col">
-  <div class="panel fade-up">
-    <div class="panel-title">Índice 1 — Cobertura</div>
-    <div class="idx-grid">
-      <div class="idx-card">
-        <div class="idx-icon" style="background:rgba(232,107,95,0.12)">📊</div>
-        <div class="idx-body">
-          <h4>IDX_COBERTURA</h4>
-          <p>Mide qué porcentaje de la cuota obligatoria ha cumplido cada entidad con sus trabajadores PCD actuales.</p>
-          <div class="idx-formula">TOT_PCD / (0.05 × TOT_TRAB) → clip(0,1)</div>
-        </div>
-      </div>
+<div class="proposal-container">
+  
+  <h2 class="section-title">Nuestra Propuesta de Solución</h2>
+  
+  <div class="card-grid">
+    <div class="info-card">
+      <h4>El Problema y su Raíz</h4>
+      <p>El problema real no es la discapacidad, ni siquiera el incumplimiento de la cuota legal (el cual es solo un síntoma). La exclusión es estructural: el ecosistema laboral del Estado asume un trabajador "estándar", creando un entorno rígido y hostil.</p>
+      <ul>
+        <li><strong>Perfiles excluyentes:</strong> Las áreas de RR.HH. reciclan perfiles que exigen condiciones físicas o presenciales innecesarias para labores administrativas.</li>
+        <li><strong>El falso mito:</strong> Las entidades se excusan diciendo que "no hay personas con el perfil en nuestra zona". Los datos (Mapa 2) desmienten esto.</li>
+        <li><strong>Costo vs. Sanción:</strong> Prefieren no adaptar espacios porque lo ven como un gasto, sabiendo que las penalidades rara vez se ejecutan.</li>
+      </ul>
     </div>
-    <div style="margin-top:1.2rem">
-      <div class="scale-bar" style="background: linear-gradient(to right, #d73027, #fc8d59, #fee090, #91cf60, #1a9850)"></div>
-      <div class="scale-labels"><span>0% de cuota</span><span>100% de cuota</span></div>
-    </div>
-    <div style="margin-top:1.2rem; padding:1rem; background:var(--surface); border-radius:6px; border:1px solid var(--border)">
-      <p style="font-size:0.78rem; color:var(--muted); line-height:1.6">⚠️ Llegar a 1.0 solo significa cumplir el <strong style="color:var(--text)">mínimo legal</strong>. No es un logro excepcional, es la obligación base.</p>
+
+    <div class="info-card">
+      <h4 class="green">El Cambio Esperado</h4>
+      <p>Nuestra meta es dejar de medir el "esfuerzo" administrativo y empezar a medir el impacto real y directo en la vida de las personas.</p>
+      <ul>
+        <li>Aumentar en un <strong>30% la tasa de cumplimiento</strong> en las 50 entidades públicas marcadas como de "alta prioridad" (Mapa 3) en 12 meses.</li>
+        <li>Reducir a cero la brecha de intermediación laboral en distritos donde el talento supera los cupos de la entidad pública local.</li>
+        <li>Implementar <strong>teletrabajo por defecto</strong> para al menos el 50% de los nuevos contratados en entidades con barreras arquitectónicas difíciles de subsanar.</li>
+      </ul>
     </div>
   </div>
 
-  <div class="panel fade-up" style="border-left:1px solid var(--border)">
-    <div class="panel-title">Índice 2 — Viabilidad</div>
-    <div class="idx-grid">
-      <div class="idx-card">
-        <div class="idx-icon" style="background:rgba(91,200,175,0.12)">🗺️</div>
-        <div class="idx-body">
-          <h4>IDX_VIABILIDAD</h4>
-          <p>Mide si el distrito donde opera la entidad tiene suficiente oferta de PCD para cubrir los cupos faltantes.</p>
-          <div class="idx-formula">1 − min(FALT_PCD / PCD_PEA_L1L2, 1)</div>
-        </div>
-      </div>
+  <h2 class="section-title">Estrategia de Intermediación Focalizada</h2>
+  <p style="color: var(--muted); margin-bottom: 2rem; font-size: 1.05rem;">
+    Esta intervención ataca la raíz institucional (inercia y perfiles excluyentes) utilizando los mapas georreferenciados para tomar decisiones exactas, no genéricas.
+  </p>
+
+  <div class="action-plan">
+    <div class="action-step">
+      <h5>1. Acción Normativa</h5>
+      <p>SERVIR y CONADIS obligarán a las entidades del "Mapa de Prioridad" (rojo intenso) a rediseñar perfiles administrativos, integrando el "teletrabajo por defecto" para saltar barreras físicas.</p>
     </div>
-    <div style="margin-top:1.2rem">
-      <div class="scale-bar" style="background: linear-gradient(to right, #c0392b, #f39c12, #f1c40f, #2ecc71, #1a7a3c)"></div>
-      <div class="scale-labels"><span>Sin oferta distrital</span><span>Oferta suficiente</span></div>
+    
+    <div class="action-step">
+      <h5>2. Intermediación Activa</h5>
+      <p>El Ministerio de Trabajo dejará las ferias genéricas. Desplegará "módulos de conexión" directamente en los distritos priorizados, cruzando el talento local con las vacantes municipales obligatorias.</p>
     </div>
-    <div style="margin-top:1.2rem; padding:1rem; background:var(--surface); border-radius:6px; border:1px solid var(--border)">
-      <p style="font-size:0.78rem; color:var(--muted); line-height:1.6">💡 Un valor bajo no culpa a la entidad: puede que simplemente no exista la oferta PCD en esa zona geográfica.</p>
+
+    <div class="action-step">
+      <h5>3. Monitoreo Inteligente</h5>
+      <p>Transición hacia una fiscalización asistida. Se auditará exclusivamente a las entidades del "Mapa 3" para asegurar la eliminación de barreras en las contrataciones.</p>
+    </div>
+
+    <div class="action-step">
+      <h5>4. Sello Territorial</h5>
+      <p>Creación del "Sello de Territorio Inclusivo". Las entidades que cierren su brecha obtendrán este reconocimiento, brindándoles becas de SERVIR y apoyo técnico en modernización digital, incentivando a las autoridades mediante reputación positiva.</p>
     </div>
   </div>
 
-  <div class="panel fade-up" style="border-left:1px solid var(--border)">
-    <div class="panel-title">Índice 3 — Prioridad</div>
-    <div class="idx-grid">
-      <div class="idx-card">
-        <div class="idx-icon" style="background:rgba(232,197,71,0.12)">🎯</div>
-        <div class="idx-body">
-          <h4>IDX_PRIORIDAD</h4>
-          <p>Combina incumplimiento y disponibilidad. Identifica dónde una política de intermediación laboral tendría efecto inmediato.</p>
-          <div class="idx-formula">(1 − IDX_COBERTURA) × IDX_VIABILIDAD</div>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top:1.2rem">
-      <div class="scale-bar" style="background: linear-gradient(to right, #fff5f5, #feb2b2, #fc8181, #e53e3e, #9b2c2c)"></div>
-      <div class="scale-labels"><span>Baja prioridad</span><span>Intervenir ya</span></div>
-    </div>
-    <div style="margin-top:1.2rem; padding:1rem; background:var(--surface); border-radius:6px; border:1px solid var(--border)">
-      <p style="font-size:0.78rem; color:var(--muted); line-height:1.6">🔴 Entidades con valor alto: incumplen la cuota <strong style="color:var(--text)">y</strong> tienen PCD disponible cerca. No hay excusa geográfica.</p>
-    </div>
-  </div>
 </div>
 
-<!-- MAPS -->
-<div style="border-bottom:1px solid var(--border); padding:2.5rem">
-  <div class="panel-title" style="margin-bottom:1.5rem">Visualización geográfica</div>
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem">
-
-    <div style="display:flex; flex-direction:column; gap:0.8rem">
-      <div style="font-family:'Syne',sans-serif; font-size:0.78rem; font-weight:700; color:var(--accent3)">01 — Cobertura</div>
-      <img src="img/mapa_IDX_COBERTURA.png" style="width:100%; border-radius:8px; border:1px solid var(--border)">
-      <p style="font-size:0.75rem; color:var(--muted); line-height:1.5">¿Cuánto de la cuota del 5% cumple cada entidad? Rojo = lejos del mínimo legal.</p>
-    </div>
-
-    <div style="display:flex; flex-direction:column; gap:0.8rem">
-      <div style="font-family:'Syne',sans-serif; font-size:0.78rem; font-weight:700; color:var(--accent2)">02 — Viabilidad</div>
-      <img src="img/mapa_IDX_VIABILIDAD.png" style="width:100%; border-radius:8px; border:1px solid var(--border)">
-      <p style="font-size:0.75rem; color:var(--muted); line-height:1.5">¿Existe oferta de PCD leve/moderada en edad de trabajar en el distrito?</p>
-    </div>
-
-    <div style="display:flex; flex-direction:column; gap:0.8rem">
-      <div style="font-family:'Syne',sans-serif; font-size:0.78rem; font-weight:700; color:var(--accent)">03 — Prioridad</div>
-      <img src="img/mapa_IDX_PRIORIDAD.png" style="width:100%; border-radius:8px; border:1px solid var(--border)">
-      <p style="font-size:0.75rem; color:var(--muted); line-height:1.5">Entidades que incumplen <em>y</em> tienen oferta disponible. Intervención de alto impacto inmediato.</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- METHODOLOGY + TABLE -->
-<div class="content">
-  <div class="panel">
-    <div class="panel-title">Construcción de PCD_PEA</div>
-    <div class="method-grid">
-      <div class="method-item">
-        <h5>Fuente: DPRIPD Set 2024</h5>
-        <p>Datos a nivel de centro poblado. Incluye distribución por grupo de edad y por nivel de gravedad de la discapacidad.</p>
-      </div>
-      <div class="method-item">
-        <h5>Filtro de edad</h5>
-        <p>Solo se consideran personas de 18 a 59 años: suma de columnas AN_18_29 + AN_30_44 + AN_45_59.</p>
-      </div>
-      <div class="method-item">
-        <h5>Filtro de severidad</h5>
-        <p>Se excluye discapacidad severa (L3). Solo L1 (leve) y L2 (moderada) se consideran aptas para el mercado laboral formal.</p>
-      </div>
-      <div class="method-item">
-        <h5>Supuesto metodológico</h5>
-        <p>La distribución edad × severidad se estima por proporción (Op1) o doble proporción con independencia (Op4). Ambas se reportan.</p>
-      </div>
-    </div>
-
-    <div style="margin-top:1.5rem">
-      <div class="panel-title">Cálculo de FALT_PCD</div>
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:1rem; font-size:0.8rem; line-height:1.8; color:var(--muted)">
-        <code style="color:var(--accent2)">FALT_PCD = ceil( max(0, (0.05 − TOT_PCD/TOT_TRAB) × TOT_TRAB) )</code><br>
-        <span style="font-size:0.72rem">Se usa <strong style="color:var(--text)">ceil</strong> en lugar de round para que cualquier fracción de cupo faltante cuente como 1 cupo real pendiente.</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel" style="border-left:1px solid var(--border)">
-    <div class="panel-title">Distribución por tipo de entidad</div>
-    <div class="bar-list" id="barList">
-      <div class="bar-item">
-        <div class="bar-header">
-          <span class="bar-name">Municipalidades distritales</span>
-          <span class="bar-val">~45%</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:0%; background:var(--accent3)" data-target="45"></div></div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-header">
-          <span class="bar-name">Otras entidades públicas</span>
-          <span class="bar-val">~28%</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:0%; background:var(--accent)" data-target="28"></div></div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-header">
-          <span class="bar-name">Municipalidades provinciales</span>
-          <span class="bar-val">~17%</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:0%; background:var(--accent2)" data-target="17"></div></div>
-      </div>
-      <div class="bar-item">
-        <div class="bar-header">
-          <span class="bar-name">Gobiernos regionales</span>
-          <span class="bar-val">~10%</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:0%; background:var(--green)" data-target="10"></div></div>
-      </div>
-    </div>
-
-    <div style="margin-top:2rem">
-      <div class="panel-title">Cobertura geográfica</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.6rem">
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:0.8rem; text-align:center">
-          <div style="font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; color:var(--accent)">25</div>
-          <div style="font-size:0.72rem; color:var(--muted); margin-top:0.2rem">regiones representadas</div>
-        </div>
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:0.8rem; text-align:center">
-          <div style="font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; color:var(--accent2)">20</div>
-          <div style="font-size:0.72rem; color:var(--muted); margin-top:0.2rem">entidades en Lima Met.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ALERT -->
-<div style="padding:2rem 0; background:var(--surface); border-bottom:1px solid var(--border)">
-  <div class="alert">
-    <div class="alert-icon">⚡</div>
-    <div class="alert-body">
-      <h4>Hallazgo principal</h4>
-      <p>El incumplimiento de la Ley 29973 no es solo un problema de voluntad institucional: en muchos distritos la oferta de PCD en edad de trabajar es limitada. Sin embargo, en las zonas donde sí existe esa oferta — especialmente Lima Metropolitana, la costa norte y algunos ejes urbanos de la sierra — la brecha entre disponibilidad y contratación es injustificable. El IDX_PRIORIDAD identifica exactamente esos casos: entidades donde una política activa de intermediación laboral tendría retorno inmediato.</p>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  <p>Análisis elaborado a partir de datos oficiales del INEI y CONADIS.<br>Los índices son construcciones metodológicas propias; los supuestos están documentados en el análisis.</p>
-  <div class="sources">
-    <span class="src-tag">DFS 2023 — CONADIS</span>
-    <span class="src-tag">DPRIPD Set 2024 — INEI</span>
-    <span class="src-tag">Ley N° 29973</span>
-  </div>
+  <p>Propuesta elaborada para la Hackathon de Datos Georreferenciados 2026. <br>Basado en datos del Censo Nacional (INEI) y registros de CONADIS.</p>
 </footer>
 
-<script>
-  // Animate bars on load
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.querySelectorAll('.bar-fill').forEach(bar => {
-        bar.style.width = bar.dataset.target + '%';
-      });
-    }, 600);
-  });
-</script>
 </body>
 </html>
-```

@@ -9,7 +9,7 @@
   :root {
     /* Paleta Beige / Clara y elegante */
     --bg:        #f7f5f0;
-    --surface:   #d4dadc;
+    --surface:   #ffffff;
     --surface2:  #eae6db;
     --border:    #dcd7cc;
     --accent:    #d1493b; /* Rojo prioritario */
@@ -25,7 +25,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html {
-    scroll-behavior: smooth; /* Permite el desplazamiento suave hacia el footer */
+    scroll-behavior: smooth;
   }
 
   body {
@@ -44,7 +44,7 @@
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Alineado arriba para acomodar la columna derecha */
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 2rem;
   }
@@ -79,6 +79,7 @@
     align-items: flex-end;
     text-align: right;
     gap: 0.3rem;
+    margin-top: 2.5rem; /* Ajuste para bajar el bloque completo */
   }
 
   .event-title {
@@ -154,6 +155,7 @@
   .map-tab.active[data-index="2"] { border-bottom: 3px solid var(--accent); color: var(--accent); }
 
   .map-panes {
+    background-color: #d4dadc; /* Nuevo color de fondo solicitado para la sección del mapa */
     padding: 3rem 4rem;
     min-height: 500px;
   }
@@ -177,7 +179,7 @@
   .map-text-content {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra todo el bloque verticalmente */
+    justify-content: center;
     height: 100%;
     padding-right: 1rem;
   }
@@ -205,7 +207,7 @@
     line-height: 1.7;
   }
 
-  /* WRAPPER DE LEYENDA (Unido al bloque) */
+  /* WRAPPER DE LEYENDA */
   .map-scale-wrapper {
     margin-top: 2rem;
     padding-top: 2rem;
@@ -245,7 +247,7 @@
   }
 
   .circle-wrap {
-    width: 25px; /* Define el ancho fijo para que el texto comience siempre en la misma posición */
+    width: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -422,8 +424,8 @@
   </div>
   
   <div class="header-right">
-    <div class="event-title">#GeotónPerú2026</div>
-    <div class="event-subtitle">Cat 4: Territorio Inclusivo</div>
+    <div class="event-title">Geotón Perú 2026</div>
+    <div class="event-subtitle">Categoría 4: Territorio Inclusivo</div>
     <div class="header-links-vertical">
       <a href="LINK_GITHUB" class="simple-link" target="_blank">💻 Repositorio GitHub</a>
       <a href="#autores-footer" class="simple-link">👥 Autores</a>
@@ -446,7 +448,7 @@
         <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
         
         <div class="map-scale-wrapper">
-          <div class="scale-bar" style="background: linear-gradient(to right, #d73027, #fdae61, #ffffbf, #a6d96a, #1a9850)"></div>
+          <div class="scale-bar" style="background: linear-gradient(to right, #d7191c, #fdae61, #ffffbf, #a6d96a, #1a9641)"></div>
           <div class="scale-labels">
             <span>0% Cumplimiento</span>
             <span>100% Cumplimiento</span>
@@ -473,7 +475,7 @@
         <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</p>
         
         <div class="map-scale-wrapper">
-          <div class="scale-bar" style="background: linear-gradient(to right, #eaf2ee, #a3c9b7, #5c9e81, #2b6b4d, #163d2b)"></div>
+          <div class="scale-bar" style="background: linear-gradient(to right, #ffffcc, #c2e699, #78c679, #31a354, #006837)"></div>
           <div class="scale-labels">
             <span>Sin oferta local</span>
             <span>Alta oferta de talento</span>
@@ -500,7 +502,7 @@
         <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
         
         <div class="map-scale-wrapper">
-          <div class="scale-bar" style="background: linear-gradient(to right, #fae9e8, #f0b9b4, #e6857d, #d1493b, #8a2a20)"></div>
+          <div class="scale-bar" style="background: linear-gradient(to right, #fee5d9, #fcae91, #fb6a4a, #de2d26, #a50f15)"></div>
           <div class="scale-labels">
             <span>Baja prioridad</span>
             <span>Intervención Inmediata</span>

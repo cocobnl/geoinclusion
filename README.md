@@ -132,7 +132,7 @@ scarcity of candidates.
 
 An interactive version of the results is published via GitHub Pages:
 
-**[View the Geoinclusion Dashboard]([url](https://cocobnl.github.io/geoinclusion/))**
+**[View the Geoinclusion Dashboard](https://cocobnl.github.io/geoinclusion/)**
 
 ---
 

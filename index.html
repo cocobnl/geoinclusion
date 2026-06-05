@@ -45,7 +45,7 @@
   }
 
   .header-left h1 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Syne', sans-serif;
     font-weight: 800;
     font-size: clamp(2rem, 4vw, 3.2rem);
     line-height: 1.1;
@@ -67,77 +67,111 @@
     max-width: 750px;
   }
 
-  .tag {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text);
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-
-  /* MAP SECTION */
-  .map-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  /* INTERACTIVE MAP SECTION */
+  .interactive-map-section {
     background: var(--surface);
+    border-bottom: 1px solid var(--border);
   }
 
-  .map-card {
-    padding: 2.5rem 2rem;
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+  .map-tabs {
     display: flex;
-    flex-direction: column; /* Permite alinear el contenido verticalmente */
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
   }
-  .map-card:last-child { border-right: none; }
+
+  .map-tab {
+    flex: 1;
+    padding: 1.2rem;
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    border-right: 1px solid var(--border);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .map-tab:last-child { border-right: none; }
+  
+  .map-tab:hover {
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .map-tab.active {
+    background: var(--surface);
+    color: var(--text);
+    border-bottom: 3px solid var(--text);
+  }
+  .map-tab.active[data-index="2"] {
+    border-bottom: 3px solid var(--accent);
+    color: var(--accent);
+  }
+
+  .map-panes {
+    padding: 3rem 4rem;
+    min-height: 500px;
+  }
+
+  .map-pane {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  .map-pane.active {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Texto a la izquierda, Mapa a la derecha */
+    gap: 4rem;
+    align-items: center;
+  }
 
   .map-text-content {
-    flex-grow: 1; /* Esto absorbe el espacio vertical libre, alineando lo de abajo al mismo nivel */
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .map-step {
     font-family: 'Syne', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--muted);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     font-weight: 700;
   }
 
-  .map-card h3 {
+  .map-pane h3 {
     font-family: 'Syne', sans-serif;
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
     color: var(--text);
   }
 
-  .map-card p {
-    font-size: 0.9rem;
+  .map-pane p {
+    font-size: 1rem;
     color: var(--muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
   }
 
-  /* SCALE BARS (Movidas encima de la imagen) */
   .map-scale-wrapper {
-    margin-bottom: 1rem; /* Espacio entre la barra y el mapa */
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
   }
 
   .scale-bar {
-    height: 10px;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
+    height: 12px;
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
   }
+
   .scale-labels {
     display: flex;
     justify-content: space-between;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--muted);
     font-weight: 500;
   }
@@ -146,8 +180,12 @@
     width: 100%;
     border-radius: 8px;
     border: 1px solid var(--border);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    margin-top: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-15px); }
+    to { opacity: 1; transform: translateX(0); }
   }
 
   /* NOTE BAR */
@@ -279,16 +317,18 @@
   }
 
   @media (max-width: 1000px) {
-    .map-grid, .card-grid, .action-plan { grid-template-columns: 1fr; }
-    .map-card { border-right: none; border-bottom: 1px solid var(--border); }
     header { padding: 2rem; flex-direction: column; align-items: flex-start; }
+    .map-pane.active { grid-template-columns: 1fr; gap: 2rem; }
+    .map-tabs { flex-direction: column; }
+    .map-tab { border-right: none; border-bottom: 1px solid var(--border); }
+    .map-panes { padding: 2rem; }
+    .card-grid, .action-plan { grid-template-columns: 1fr; }
     .note-bar, .proposal-container { padding: 2rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-left">
     <h1>GEOINCLUSIÓN PÚBLICA</h1>
@@ -297,80 +337,79 @@
   </div>
 </header>
 
-<!-- MAP SECTION (THE EVIDENCE & ACTION PLAN) -->
-<div class="map-grid">
-  
-  <!-- Map 1: Cobertura -->
-  <div class="map-card">
-    <div class="map-text-content">
-      <div class="map-step">Paso 1: El Síntoma</div>
-      <h3>Mapa de Cobertura</h3>
-      <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
-    </div>
-    
-    <div class="map-scale-wrapper">
-      <div class="scale-bar" style="background: linear-gradient(to right, #d1493b, #e09e36, #34825d)"></div>
-      <div class="scale-labels">
-        <span>0% Cumplimiento</span>
-        <span>100% Cumplimiento</span>
-      </div>
-    </div>
-
-    <img src="img/mapa_IDX_COBERTURA.png" alt="Mapa de Cobertura" class="map-image">
+<div class="interactive-map-section" id="interactiveMap">
+  <div class="map-tabs">
+    <div class="map-tab active" data-index="0">Paso 1: Cobertura</div>
+    <div class="map-tab" data-index="1">Paso 2: Viabilidad</div>
+    <div class="map-tab" data-index="2" style="color: var(--accent);">Paso 3: Prioridad</div>
   </div>
 
-  <!-- Map 2: Viabilidad -->
-  <div class="map-card">
-    <div class="map-text-content">
-      <div class="map-step">Paso 2: El Talento</div>
-      <h3>Mapa de Viabilidad</h3>
-      <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</p>
-    </div>
-    
-    <div class="map-scale-wrapper">
-      <div class="scale-bar" style="background: linear-gradient(to right, #eaf2ee, #a3c9b7, #5c9e81, #2b6b4d, #163d2b)"></div>
-      <div class="scale-labels">
-        <span>Sin oferta local</span>
-        <span>Alta oferta de talento</span>
+  <div class="map-panes">
+    <div class="map-pane active" id="pane-0">
+      <div class="map-text-content">
+        <div>
+          <div class="map-step">Paso 1: El Síntoma</div>
+          <h3>Mapa de Cobertura</h3>
+          <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
+        </div>
+        <div class="map-scale-wrapper">
+          <div class="scale-bar" style="background: linear-gradient(to right, #d73027, #fdae61, #ffffbf, #a6d96a, #1a9850)"></div>
+          <div class="scale-labels">
+            <span>0% Cumplimiento</span>
+            <span>100% Cumplimiento</span>
+          </div>
+        </div>
       </div>
+      <img src="img/mapa_IDX_COBERTURA.png" alt="Mapa de Cobertura" class="map-image">
     </div>
 
-    <img src="img/mapa_IDX_VIABILIDAD.png" alt="Mapa de Viabilidad" class="map-image">
-  </div>
-
-  <!-- Map 3: Prioridad -->
-  <div class="map-card" style="background: #fffcfb;">
-    <div class="map-text-content">
-      <div class="map-step" style="color: var(--accent);">Paso 3: La Acción</div>
-      <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
-      <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
-    </div>
-    
-    <div class="map-scale-wrapper">
-      <div class="scale-bar" style="background: linear-gradient(to right, #fae9e8, #f0b9b4, #e6857d, #d1493b, #8a2a20)"></div>
-      <div class="scale-labels">
-        <span>Baja prioridad</span>
-        <span>Intervención Inmediata</span>
+    <div class="map-pane" id="pane-1">
+      <div class="map-text-content">
+        <div>
+          <div class="map-step">Paso 2: El Talento</div>
+          <h3>Mapa de Viabilidad</h3>
+          <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</p>
+        </div>
+        <div class="map-scale-wrapper">
+          <div class="scale-bar" style="background: linear-gradient(to right, #eaf2ee, #a3c9b7, #5c9e81, #2b6b4d, #163d2b)"></div>
+          <div class="scale-labels">
+            <span>Sin oferta local</span>
+            <span>Alta oferta de talento</span>
+          </div>
+        </div>
       </div>
+      <img src="img/mapa_IDX_VIABILIDAD.png" alt="Mapa de Viabilidad" class="map-image">
     </div>
 
-    <img src="img/mapa_IDX_PRIORIDAD.png" alt="Mapa de Prioridad" class="map-image">
+    <div class="map-pane" id="pane-2">
+      <div class="map-text-content">
+        <div>
+          <div class="map-step" style="color: var(--accent);">Paso 3: La Acción</div>
+          <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
+          <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
+        </div>
+        <div class="map-scale-wrapper">
+          <div class="scale-bar" style="background: linear-gradient(to right, #fae9e8, #f0b9b4, #e6857d, #d1493b, #8a2a20)"></div>
+          <div class="scale-labels">
+            <span>Baja prioridad</span>
+            <span>Intervención Inmediata</span>
+          </div>
+        </div>
+      </div>
+      <img src="img/mapa_IDX_PRIORIDAD.png" alt="Mapa de Prioridad" class="map-image">
+    </div>
   </div>
-
 </div>
 
-<!-- NOTE BAR REUBICADA -->
 <div class="note-bar">
-  <strong>💡 Nota Visual:</strong> El tamaño de los círculos es proporcional al  total de empleados de dicha entidad pública.
+  <strong>💡 Nota Visual:</strong> El tamaño de los círculos es proporcional al total de empleados de dicha entidad pública.
 </div>
 
-<!-- PROPOSAL SECTION -->
 <div class="proposal-container">
   
   <h2 class="section-title">Nuestra Propuesta de Solución</h2>
   
   <div class="card-grid">
-    <!-- Problema y Raíz -->
     <div class="info-card">
       <h4>El Problema y su Raíz</h4>
       <p>El problema real no es la discapacidad, ni siquiera el incumplimiento de la cuota legal (el cual es solo un síntoma). La exclusión es estructural: el ecosistema laboral del Estado asume un trabajador "estándar", creando un entorno rígido y hostil.</p>
@@ -381,7 +420,6 @@
       </ul>
     </div>
 
-    <!-- Cambio Esperado -->
     <div class="info-card">
       <h4 class="green">El Cambio Esperado</h4>
       <p>Nuestra meta es dejar de medir el "esfuerzo" administrativo y empezar a medir el impacto real y directo en la vida de las personas.</p>
@@ -422,10 +460,57 @@
 
 </div>
 
-<!-- FOOTER -->
 <footer>
   <p>Propuesta elaborada para la Geotón Perú 2026. <br>Basado en datos de CONADIS en visor Geo Perú.</p>
 </footer>
+
+<script>
+  const tabs = document.querySelectorAll('.map-tab');
+  const panes = document.querySelectorAll('.map-pane');
+  const interactiveSection = document.getElementById('interactiveMap');
+  
+  let currentIndex = 0;
+  let carouselInterval;
+  const TIME_PER_SLIDE = 10000; // 10 segundos
+
+  function showMap(index) {
+    tabs.forEach(tab => tab.classList.remove('active'));
+    panes.forEach(pane => pane.classList.remove('active'));
+    
+    tabs[index].classList.add('active');
+    panes[index].classList.add('active');
+    currentIndex = index;
+  }
+
+  function nextMap() {
+    let nextIndex = (currentIndex + 1) % tabs.length;
+    showMap(nextIndex);
+  }
+
+  function startCarousel() {
+    carouselInterval = setInterval(nextMap, TIME_PER_SLIDE);
+  }
+
+  function resetCarousel() {
+    clearInterval(carouselInterval);
+    startCarousel();
+  }
+
+  // Interacción al pasar el mouse por las pestañas
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('mouseenter', () => {
+      showMap(index);
+      resetCarousel(); // Reinicia el contador si el usuario interactúa
+    });
+  });
+
+  // Pausar el carrusel si el usuario tiene el mouse sobre el área de los mapas
+  interactiveSection.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+  interactiveSection.addEventListener('mouseleave', startCarousel);
+
+  // Iniciar el carrusel automáticamente
+  startCarousel();
+</script>
 
 </body>
 </html>

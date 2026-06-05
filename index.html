@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeoInclusión Pública — Plan de Acción 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     /* Paleta Beige / Clara y elegante */
@@ -45,20 +45,26 @@
   }
 
   .header-left h1 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-size: clamp(2rem, 4vw, 3.2rem);
     line-height: 1.1;
     color: var(--text);
+    margin-bottom: 0.5rem;
   }
 
-  .header-left h1 span { color: var(--accent); }
+  .subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
 
   .header-left p {
-    margin-top: 0.8rem;
     color: var(--muted);
     font-size: 1.05rem;
-    max-width: 700px;
+    max-width: 750px;
   }
 
   .tag {
@@ -72,32 +78,20 @@
     color: var(--text);
     font-weight: 600;
     display: inline-block;
-    margin-bottom: 0.5rem;
-  }
-
-  /* NOTE BAR */
-  .note-bar {
-    background: var(--surface2);
-    padding: 0.8rem 4rem;
-    font-size: 0.85rem;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   /* MAP SECTION */
   .map-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-bottom: 1px solid var(--border);
     background: var(--surface);
   }
 
   .map-card {
     padding: 2.5rem 2rem;
     border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     display: flex;
     flex-direction: column;
   }
@@ -114,7 +108,7 @@
   }
 
   .map-card h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: var(--text);
@@ -124,7 +118,7 @@
     font-size: 0.9rem;
     color: var(--muted);
     margin-bottom: 1.5rem;
-    min-height: 65px;
+    min-height: 80px;
   }
 
   .map-image {
@@ -147,6 +141,18 @@
     font-size: 0.75rem;
     color: var(--muted);
     font-weight: 500;
+  }
+
+  /* NOTE BAR */
+  .note-bar {
+    background: var(--surface2);
+    padding: 1.2rem 4rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   /* PROPOSAL SECTION */
@@ -275,20 +281,19 @@
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
   <div class="header-left">
-    <span class="tag">GeoInclusión Pública</span>
-    <h1>Más allá de la cuota,<br><span>un mapa para la inclusión real.</span></h1>
-    <p>Estrategia basada en datos georreferenciados para transformar el ecosistema laboral del Estado, conectando a Entidades Públicas con el talento de Personas con Discapacidad (PCD) disponible en su territorio.</p>
+    <h1>GEOINCLUSIÓN PÚBLICA</h1>
+    <div class="subtitle">Más allá de la cuota, un mapa para la inclusión real.</div>
+    <p>Estrategia basada en datos georreferenciados para transformar el ecosistema laboral del Estado, conectando a Entidades Públicas con el talento de Personas con Discapacidad (PcD) disponible en su territorio.</p>
   </div>
 </header>
 
-<div class="note-bar">
-  <strong>💡 Nota Visual:</strong> En todos los mapas presentados a continuación, el tamaño de los círculos es proporcional a la cantidad total de empleados de cada entidad pública.
-</div>
-
+<!-- MAP SECTION (THE EVIDENCE & ACTION PLAN) -->
 <div class="map-grid">
   
+  <!-- Map 1: Cobertura -->
   <div class="map-card">
     <div class="map-step">Paso 1: El Síntoma</div>
     <h3>Mapa de Cobertura</h3>
@@ -303,10 +308,11 @@
     </div>
   </div>
 
+  <!-- Map 2: Viabilidad -->
   <div class="map-card">
     <div class="map-step">Paso 2: El Talento</div>
     <h3>Mapa de Viabilidad</h3>
-    <p>Desmiente el mito de la "ausencia de talento". Muestra las zonas (distritos) donde existe una alta concentración de Personas con Discapacidad en edad productiva.</p>
+    <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar.</p>
     
     <img src="img/mapa_IDX_VIABILIDAD.jpg" alt="Mapa de Viabilidad" class="map-image">
     
@@ -317,6 +323,7 @@
     </div>
   </div>
 
+  <!-- Map 3: Prioridad -->
   <div class="map-card" style="background: #fffcfb;">
     <div class="map-step" style="color: var(--accent);">Paso 3: La Acción (Cruce Estratégico)</div>
     <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
@@ -333,11 +340,18 @@
 
 </div>
 
+<!-- NOTE BAR REUBICADA -->
+<div class="note-bar">
+  <strong>💡 Nota Visual:</strong> El tamaño de los círculos es proporcional al  total de empleados de dicha entidad pública.
+</div>
+
+<!-- PROPOSAL SECTION -->
 <div class="proposal-container">
   
   <h2 class="section-title">Nuestra Propuesta de Solución</h2>
   
   <div class="card-grid">
+    <!-- Problema y Raíz -->
     <div class="info-card">
       <h4>El Problema y su Raíz</h4>
       <p>El problema real no es la discapacidad, ni siquiera el incumplimiento de la cuota legal (el cual es solo un síntoma). La exclusión es estructural: el ecosistema laboral del Estado asume un trabajador "estándar", creando un entorno rígido y hostil.</p>
@@ -348,6 +362,7 @@
       </ul>
     </div>
 
+    <!-- Cambio Esperado -->
     <div class="info-card">
       <h4 class="green">El Cambio Esperado</h4>
       <p>Nuestra meta es dejar de medir el "esfuerzo" administrativo y empezar a medir el impacto real y directo en la vida de las personas.</p>
@@ -388,8 +403,9 @@
 
 </div>
 
+<!-- FOOTER -->
 <footer>
-  <p>Propuesta elaborada para la Hackathon de Datos Georreferenciados 2026. <br>Basado en datos del Censo Nacional (INEI) y registros de CONADIS.</p>
+  <p>Propuesta elaborada para la Geotón Perú 2026. <br>Basado en datos de CONADIS en visor Geo Perú.</p>
 </footer>
 
 </body>

@@ -40,7 +40,8 @@
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center; /* Alineación ajustada para los botones */
+    flex-wrap: wrap;
     gap: 2rem;
   }
 
@@ -65,6 +66,31 @@
     color: var(--muted);
     font-size: 1.05rem;
     max-width: 750px;
+  }
+
+  /* LINKS DE AUTOR */
+  .header-right {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .author-link {
+    text-decoration: none;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .author-link:hover {
+    background: var(--text);
+    color: var(--surface);
+    border-color: var(--text);
   }
 
   /* INTERACTIVE MAP SECTION */
@@ -116,14 +142,20 @@
 
   .map-pane {
     display: none;
-    animation: fadeIn 0.4s ease-in-out;
   }
 
+  /* NUEVA ANIMACIÓN: BLUR SIN MOVIMIENTO */
   .map-pane.active {
     display: grid;
-    grid-template-columns: 1fr 1.5fr; /* Texto a la izquierda, Mapa a la derecha */
+    grid-template-columns: 1fr 1.5fr; 
     gap: 4rem;
     align-items: center;
+    animation: blurFade 0.6s ease-out forwards;
+  }
+
+  @keyframes blurFade {
+    from { opacity: 0; filter: blur(8px); }
+    to { opacity: 1; filter: blur(0); }
   }
 
   .map-text-content {
@@ -176,28 +208,49 @@
     font-weight: 500;
   }
 
-  .map-image {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  /* LEYENDA DE CÍRCULOS (Burbujas) */
+  .circle-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed var(--border);
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateX(-15px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  /* NOTE BAR */
-  .note-bar {
-    background: var(--surface2);
-    padding: 1.2rem 4rem;
-    font-size: 0.9rem;
-    color: var(--text);
-    border-bottom: 1px solid var(--border);
+  .legend-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .circle-small {
+    width: 8px; 
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(43, 41, 39, 0.2);
+    border: 1.5px solid var(--text);
+    flex-shrink: 0;
+  }
+
+  .circle-large {
+    width: 22px; 
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(43, 41, 39, 0.2);
+    border: 1.5px solid var(--text);
+    flex-shrink: 0;
+  }
+
+  /* IMAGEN CON TAMAÑO FIJO Y PROPORCIONAL */
+  .map-image {
+    width: 100%;
+    max-height: 60vh; /* Máximo 60% del alto de la pantalla */
+    object-fit: contain; /* Mantiene la proporción sin deformarse */
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
   }
 
   /* PROPOSAL SECTION */
@@ -308,12 +361,19 @@
 
   /* FOOTER */
   footer {
-    padding: 2rem 4rem;
+    padding: 3rem 4rem;
     background: var(--surface);
     border-top: 1px solid var(--border);
     text-align: center;
     color: var(--muted);
     font-size: 0.85rem;
+  }
+
+  .footer-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
   }
 
   @media (max-width: 1000px) {
@@ -323,7 +383,7 @@
     .map-tab { border-right: none; border-bottom: 1px solid var(--border); }
     .map-panes { padding: 2rem; }
     .card-grid, .action-plan { grid-template-columns: 1fr; }
-    .note-bar, .proposal-container { padding: 2rem; }
+    .proposal-container { padding: 2rem; }
   }
 </style>
 </head>
@@ -334,6 +394,10 @@
     <h1>GEOINCLUSIÓN PÚBLICA</h1>
     <div class="subtitle">Más allá de la cuota, un mapa para la inclusión real.</div>
     <p>Estrategia basada en datos georreferenciados para transformar el ecosistema laboral del Estado, conectando a Entidades Públicas con el talento de Personas con Discapacidad (PcD) disponible en su territorio.</p>
+  </div>
+  <div class="header-right">
+    <a href="URL_LINKEDIN" class="author-link" target="_blank">LinkedIn</a>
+    <a href="URL_GITHUB" class="author-link" target="_blank">Repositorio GitHub</a>
   </div>
 </header>
 
@@ -358,6 +422,16 @@
             <span>0% Cumplimiento</span>
             <span>100% Cumplimiento</span>
           </div>
+          <div class="circle-legend">
+            <div class="legend-item">
+              <div class="circle-small"></div>
+              <span>Pocos empleados faltantes en dicha entidad pública</span>
+            </div>
+            <div class="legend-item">
+              <div class="circle-large"></div>
+              <span>Muchos empleados faltantes en dicha entidad pública</span>
+            </div>
+          </div>
         </div>
       </div>
       <img src="img/mapa_IDX_COBERTURA.png" alt="Mapa de Cobertura" class="map-image">
@@ -375,6 +449,16 @@
           <div class="scale-labels">
             <span>Sin oferta local</span>
             <span>Alta oferta de talento</span>
+          </div>
+          <div class="circle-legend">
+            <div class="legend-item">
+              <div class="circle-small"></div>
+              <span>Pocos empleados faltantes en dicha entidad pública</span>
+            </div>
+            <div class="legend-item">
+              <div class="circle-large"></div>
+              <span>Muchos empleados faltantes en dicha entidad pública</span>
+            </div>
           </div>
         </div>
       </div>
@@ -394,15 +478,21 @@
             <span>Baja prioridad</span>
             <span>Intervención Inmediata</span>
           </div>
+          <div class="circle-legend">
+            <div class="legend-item">
+              <div class="circle-small"></div>
+              <span>Pocos empleados faltantes en dicha entidad pública</span>
+            </div>
+            <div class="legend-item">
+              <div class="circle-large"></div>
+              <span>Muchos empleados faltantes en dicha entidad pública</span>
+            </div>
+          </div>
         </div>
       </div>
       <img src="img/mapa_IDX_PRIORIDAD.png" alt="Mapa de Prioridad" class="map-image">
     </div>
   </div>
-</div>
-
-<div class="note-bar">
-  <strong>💡 Nota Visual:</strong> El tamaño de los círculos es proporcional al total de empleados de dicha entidad pública.
 </div>
 
 <div class="proposal-container">
@@ -462,6 +552,10 @@
 
 <footer>
   <p>Propuesta elaborada para la Geotón Perú 2026. <br>Basado en datos de CONADIS en visor Geo Perú.</p>
+  <div class="footer-links">
+    <a href="URL_LINKEDIN" class="author-link" target="_blank">LinkedIn</a>
+    <a href="URL_GITHUB" class="author-link" target="_blank">Repositorio GitHub</a>
+  </div>
 </footer>
 
 <script>
@@ -470,8 +564,8 @@
   const interactiveSection = document.getElementById('interactiveMap');
   
   let currentIndex = 0;
-  let carouselInterval;
-  const TIME_PER_SLIDE = 10000; // 10 segundos
+  let carouselInterval = null;
+  const TIME_PER_SLIDE = 8000; // 8 segundos exactos
 
   function showMap(index) {
     tabs.forEach(tab => tab.classList.remove('active'));
@@ -487,28 +581,32 @@
     showMap(nextIndex);
   }
 
+  // Lógica de carrusel limpia: solo un intervalo activo a la vez
   function startCarousel() {
-    carouselInterval = setInterval(nextMap, TIME_PER_SLIDE);
+    if (!carouselInterval) {
+      carouselInterval = setInterval(nextMap, TIME_PER_SLIDE);
+    }
   }
 
-  function resetCarousel() {
+  function stopCarousel() {
     clearInterval(carouselInterval);
-    startCarousel();
+    carouselInterval = null;
   }
 
-  // Interacción al pasar el mouse por las pestañas
+  // Cuando el mouse entra en toda la sección, se detiene la rotación automática
+  interactiveSection.addEventListener('mouseenter', stopCarousel);
+  // Cuando sale, se reanuda
+  interactiveSection.addEventListener('mouseleave', startCarousel);
+
+  // Al pasar el mouse sobre una pestaña en específico, cambia al mapa,
+  // pero ya no reinicia agresivamente el timer (porque está pausado).
   tabs.forEach((tab, index) => {
     tab.addEventListener('mouseenter', () => {
       showMap(index);
-      resetCarousel(); // Reinicia el contador si el usuario interactúa
     });
   });
 
-  // Pausar el carrusel si el usuario tiene el mouse sobre el área de los mapas
-  interactiveSection.addEventListener('mouseenter', () => clearInterval(carouselInterval));
-  interactiveSection.addEventListener('mouseleave', startCarousel);
-
-  // Iniciar el carrusel automáticamente
+  // Iniciar el carrusel automáticamente al cargar
   startCarousel();
 </script>
 

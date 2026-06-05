@@ -93,9 +93,14 @@
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Permite alinear el contenido verticalmente */
   }
   .map-card:last-child { border-right: none; }
+
+  .map-text-content {
+    flex-grow: 1; /* Esto absorbe el espacio vertical libre, alineando lo de abajo al mismo nivel */
+    margin-bottom: 1.5rem;
+  }
 
   .map-step {
     font-family: 'Syne', sans-serif;
@@ -108,7 +113,7 @@
   }
 
   .map-card h3 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Syne', sans-serif;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: var(--text);
@@ -117,19 +122,13 @@
   .map-card p {
     font-size: 0.9rem;
     color: var(--muted);
-    margin-bottom: 1.5rem;
-    min-height: 80px;
   }
 
-  .map-image {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  /* SCALE BARS (Movidas encima de la imagen) */
+  .map-scale-wrapper {
+    margin-bottom: 1rem; /* Espacio entre la barra y el mapa */
   }
 
-  /* SCALE BARS */
   .scale-bar {
     height: 10px;
     border-radius: 5px;
@@ -141,6 +140,14 @@
     font-size: 0.75rem;
     color: var(--muted);
     font-weight: 500;
+  }
+
+  .map-image {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    margin-top: auto;
   }
 
   /* NOTE BAR */
@@ -295,47 +302,59 @@
   
   <!-- Map 1: Cobertura -->
   <div class="map-card">
-    <div class="map-step">Paso 1: El Síntoma</div>
-    <h3>Mapa de Cobertura</h3>
-    <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
-    
-    <img src="img/mapa_IDX_COBERTURA.png" alt="Mapa de Cobertura" class="map-image">
-    
-    <div class="scale-bar" style="background: linear-gradient(to right, #d1493b, #e09e36, #34825d)"></div>
-    <div class="scale-labels">
-      <span>0% Cumplimiento</span>
-      <span>100% Cumplimiento</span>
+    <div class="map-text-content">
+      <div class="map-step">Paso 1: El Síntoma</div>
+      <h3>Mapa de Cobertura</h3>
+      <p>Visualiza el déficit actual. Identificamos qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación.</p>
     </div>
+    
+    <div class="map-scale-wrapper">
+      <div class="scale-bar" style="background: linear-gradient(to right, #d1493b, #e09e36, #34825d)"></div>
+      <div class="scale-labels">
+        <span>0% Cumplimiento</span>
+        <span>100% Cumplimiento</span>
+      </div>
+    </div>
+
+    <img src="img/mapa_IDX_COBERTURA.png" alt="Mapa de Cobertura" class="map-image">
   </div>
 
   <!-- Map 2: Viabilidad -->
   <div class="map-card">
-    <div class="map-step">Paso 2: El Talento</div>
-    <h3>Mapa de Viabilidad</h3>
-    <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar.</p>
-    
-    <img src="img/mapa_IDX_VIABILIDAD.png" alt="Mapa de Viabilidad" class="map-image">
-    
-    <div class="scale-bar" style="background: linear-gradient(to right, #eaf2ee, #a3c9b7, #5c9e81, #2b6b4d, #163d2b)"></div>
-    <div class="scale-labels">
-      <span>Sin oferta local</span>
-      <span>Alta oferta de talento</span>
+    <div class="map-text-content">
+      <div class="map-step">Paso 2: El Talento</div>
+      <h3>Mapa de Viabilidad</h3>
+      <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</p>
     </div>
+    
+    <div class="map-scale-wrapper">
+      <div class="scale-bar" style="background: linear-gradient(to right, #eaf2ee, #a3c9b7, #5c9e81, #2b6b4d, #163d2b)"></div>
+      <div class="scale-labels">
+        <span>Sin oferta local</span>
+        <span>Alta oferta de talento</span>
+      </div>
+    </div>
+
+    <img src="img/mapa_IDX_VIABILIDAD.png" alt="Mapa de Viabilidad" class="map-image">
   </div>
 
   <!-- Map 3: Prioridad -->
   <div class="map-card" style="background: #fffcfb;">
-    <div class="map-step" style="color: var(--accent);">Paso 3: La Acción (Cruce Estratégico)</div>
-    <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
-    <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
-    
-    <img src="img/mapa_IDX_PRIORIDAD.png" alt="Mapa de Prioridad" class="map-image">
-    
-    <div class="scale-bar" style="background: linear-gradient(to right, #fae9e8, #f0b9b4, #e6857d, #d1493b, #8a2a20)"></div>
-    <div class="scale-labels">
-      <span>Baja prioridad</span>
-      <span>Intervención Inmediata</span>
+    <div class="map-text-content">
+      <div class="map-step" style="color: var(--accent);">Paso 3: La Acción</div>
+      <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
+      <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
     </div>
+    
+    <div class="map-scale-wrapper">
+      <div class="scale-bar" style="background: linear-gradient(to right, #fae9e8, #f0b9b4, #e6857d, #d1493b, #8a2a20)"></div>
+      <div class="scale-labels">
+        <span>Baja prioridad</span>
+        <span>Intervención Inmediata</span>
+      </div>
+    </div>
+
+    <img src="img/mapa_IDX_PRIORIDAD.png" alt="Mapa de Prioridad" class="map-image">
   </div>
 
 </div>

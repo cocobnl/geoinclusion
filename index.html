@@ -20,6 +20,7 @@
     --red:       #d1493b;
     --yellow:    #e09e36;
     --green:     #34825d;
+    --focus:     #005fcc; /* Color para el foco de accesibilidad */
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,6 +36,59 @@
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.6;
+  }
+
+  /* ACCESIBILIDAD: FOCUS STATES */
+  *:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* ACCESIBILIDAD: SKIP LINK */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--focus);
+    color: white;
+    padding: 8px 16px;
+    z-index: 9999;
+    text-decoration: none;
+    font-weight: 600;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* LANGUAGE TOGGLE LOGIC */
+  body:not(.en) .lang-en { display: none !important; }
+  body.en .lang-es { display: none !important; }
+
+  /* LANGUAGE BUTTON STYLES (Ajustado para ser más pequeño) */
+  .lang-toggle {
+    display: inline-flex;
+    background: var(--surface2);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+  
+  .lang-btn {
+    background: transparent;
+    border: none;
+    padding: 0.25rem 0.6rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .lang-btn.active {
+    background: var(--text);
+    color: var(--surface);
   }
 
   /* HEADER */
@@ -79,7 +133,6 @@
     align-items: flex-end;
     text-align: right;
     gap: 0.3rem;
-    margin-top: 2.5rem; /* Ajuste para bajar el bloque completo */
   }
 
   .event-title {
@@ -114,13 +167,19 @@
     font-size: 0.95rem;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
     transition: color 0.2s ease;
     cursor: pointer;
   }
 
   .simple-link:hover {
     color: var(--accent);
+  }
+
+  .icon-svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
   }
 
   /* INTERACTIVE MAP SECTION */
@@ -133,10 +192,13 @@
     display: flex;
     background: var(--surface2);
     border-bottom: 1px solid var(--border);
+    align-items: center;
   }
 
   .map-tab {
     flex: 1;
+    background: transparent;
+    border: none;
     padding: 1.2rem;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
@@ -148,14 +210,33 @@
     border-bottom: 3px solid transparent;
     transition: all 0.3s ease;
   }
-  .map-tab:last-child { border-right: none; }
   
   .map-tab:hover { background: var(--surface); color: var(--text); }
   .map-tab.active { background: var(--surface); color: var(--text); border-bottom: 3px solid var(--text); }
   .map-tab.active[data-index="2"] { border-bottom: 3px solid var(--accent); color: var(--accent); }
 
+  /* ACCESIBILIDAD: BOTÓN DE PAUSA */
+  .carousel-controls {
+    padding: 0 1rem;
+    border-right: 1px solid var(--border);
+  }
+  
+  .pause-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .pause-btn:hover { background: var(--surface); }
+
   .map-panes {
-    background-color: #d4dadc; /* Nuevo color de fondo solicitado para la sección del mapa */
+    background-color: #d4dadc;
     padding: 3rem 4rem;
     min-height: 500px;
   }
@@ -406,8 +487,9 @@
     .header-right { width: 100%; align-items: flex-start; text-align: left; margin-top: 1rem; }
     .header-links-vertical { align-items: flex-start; }
     .map-pane.active { grid-template-columns: 1fr; gap: 2rem; }
-    .map-tabs { flex-direction: column; }
-    .map-tab { border-right: none; border-bottom: 1px solid var(--border); }
+    .map-tabs { flex-wrap: wrap; }
+    .map-tab { border-right: none; border-bottom: 1px solid var(--border); width: 100%; flex: none; }
+    .carousel-controls { width: 100%; text-align: center; padding: 1rem; border-right: none; border-bottom: 1px solid var(--border); }
     .map-panes { padding: 2rem; }
     .card-grid, .action-plan { grid-template-columns: 1fr; }
     .proposal-container { padding: 2rem; }
@@ -416,194 +498,363 @@
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">
+  <span class="lang-es">Saltar al contenido principal</span>
+  <span class="lang-en">Skip to main content</span>
+</a>
+
 <header>
   <div class="header-left">
-    <h1>GEOINCLUSIÓN PÚBLICA</h1>
-    <div class="subtitle">Más allá de la cuota, un mapa para la inclusión real.</div>
-    <p>Estrategia basada en datos georreferenciados para transformar el ecosistema laboral del Estado, conectando a Entidades Públicas con el talento de Personas con Discapacidad (PcD) disponible en su territorio.</p>
+    <h1>
+      <span class="lang-es">GEOINCLUSIÓN PÚBLICA</span>
+      <span class="lang-en">PUBLIC GEO-INCLUSION</span>
+    </h1>
+    <div class="subtitle">
+      <span class="lang-es">Más allá de la cuota, un mapa para la inclusión real.</span>
+      <span class="lang-en">Beyond the quota, a map for real inclusion.</span>
+    </div>
+    <p>
+      <span class="lang-es">Estrategia basada en datos georreferenciados para transformar el ecosistema laboral del Estado, conectando a Entidades Públicas con el talento de Personas con Discapacidad (PcD) disponible en su territorio.</span>
+      <span class="lang-en">Strategy based on georeferenced data to transform the State's labor ecosystem, connecting Public Entities with the talent of People with Disabilities (PwD) available in their territory.</span>
+    </p>
   </div>
   
   <div class="header-right">
-    <div class="event-title">Geotón Perú 2026</div>
-    <div class="event-subtitle">Categoría 4: Territorio Inclusivo</div>
+    <div class="lang-toggle" role="group" aria-label="Selector de idioma">
+      <button class="lang-btn active" data-lang="es" aria-pressed="true">ESP</button>
+      <button class="lang-btn" data-lang="en" aria-pressed="false">ENG</button>
+    </div>
+
+    <div class="event-title">
+      <span class="lang-es">Geotón Perú 2026</span>
+      <span class="lang-en">Geothon Peru 2026</span>
+    </div>
+    <div class="event-subtitle">
+      <span class="lang-es">Categoría 4: Territorio Inclusivo</span>
+      <span class="lang-en">Category 4: Inclusive Territory</span>
+    </div>
     <div class="header-links-vertical">
-      <a href="https://github.com/cocobnl/geoinclusion" class="simple-link" target="_blank">💻 Repositorio GitHub</a>
-      <a href="#autores-footer" class="simple-link">👥 Autores</a>
+      <a href="https://github.com/cocobnl/geoinclusion" class="simple-link" target="_blank" aria-label="Ir al Repositorio GitHub del proyecto">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span class="lang-es">Repositorio</span>
+        <span class="lang-en">Repository</span>
+      </a>
+      <a href="#autores-footer" class="simple-link" aria-label="Ir a la sección de Autores del proyecto">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <span class="lang-es">Autores</span>
+        <span class="lang-en">Authors</span>
+      </a>
     </div>
   </div>
 </header>
 
-<div class="interactive-map-section" id="interactiveMap">
-  <div class="map-tabs">
-    <div class="map-tab active" data-index="0">Paso 1: Cobertura</div>
-    <div class="map-tab" data-index="1">Paso 2: Viabilidad</div>
-    <div class="map-tab" data-index="2" style="color: var(--accent);">Paso 3: Prioridad</div>
-  </div>
+<main id="main-content">
+  <div class="interactive-map-section" id="interactiveMap">
+    <div class="map-tabs" role="tablist" aria-label="Visualizaciones del Plan de Acción">
+      <div class="carousel-controls">
+        <button class="pause-btn" id="pauseBtn" aria-label="Pausar rotación automática" aria-pressed="false" title="Pausar rotación automática">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+      </div>
+      
+      <button class="map-tab active" data-index="0" role="tab" aria-selected="true" aria-controls="pane-0" id="tab-0" tabindex="0">
+        <span class="lang-es">Paso 1: Cobertura</span>
+        <span class="lang-en">Step 1: Coverage</span>
+      </button>
+      <button class="map-tab" data-index="1" role="tab" aria-selected="false" aria-controls="pane-1" id="tab-1" tabindex="-1">
+        <span class="lang-es">Paso 2: Viabilidad</span>
+        <span class="lang-en">Step 2: Viability</span>
+      </button>
+      <button class="map-tab" data-index="2" style="color: var(--accent);" role="tab" aria-selected="false" aria-controls="pane-2" id="tab-2" tabindex="-1">
+        <span class="lang-es">Paso 3: Prioridad</span>
+        <span class="lang-en">Step 3: Priority</span>
+      </button>
+    </div>
 
-  <div class="map-panes">
-    <div class="map-pane active" id="pane-0">
-      <div class="map-text-content">
-        <div class="map-step">Paso 1: El Síntoma</div>
-        <h3>Mapa de Cobertura</h3>
-        <p>Visualiza el déficit actual. Qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación de PcD (Ley N° 29973).</p>
-        
-        <div class="map-scale-wrapper">
-          <div class="scale-bar" style="background: linear-gradient(to right, #d7191c, #fdae61, #ffffbf, #a6d96a, #1a9641)"></div>
-          <div class="scale-labels">
-            <span>0% Cumplimiento</span>
-            <span>100% Cumplimiento</span>
+    <div class="map-panes">
+      <div class="map-pane active" id="pane-0" role="tabpanel" aria-labelledby="tab-0">
+        <div class="map-text-content">
+          <div class="map-step">
+            <span class="lang-es">Paso 1: El Síntoma</span>
+            <span class="lang-en">Step 1: The Symptom</span>
           </div>
-          <div class="circle-legend">
-            <div class="legend-item">
-              <div class="circle-wrap"><div class="circle-small"></div></div>
-              <span>Faltan pocos</span>
+          <h3>
+            <span class="lang-es">Mapa de Cobertura</span>
+            <span class="lang-en">Coverage Map</span>
+          </h3>
+          <p>
+            <span class="lang-es">Visualiza el déficit actual. Qué entidades públicas no están cumpliendo con la cuota obligatoria del 5% de contratación de PcD (Ley N° 29973).</span>
+            <span class="lang-en">Visualizes the current deficit. Identifies which public entities are not meeting the mandatory 5% hiring quota for PwD (Law N° 29973).</span>
+          </p>
+          
+          <div class="map-scale-wrapper" aria-hidden="true">
+            <div class="scale-bar" style="background: linear-gradient(to right, #d7191c, #fdae61, #ffffbf, #a6d96a, #1a9641)"></div>
+            <div class="scale-labels">
+              <span class="lang-es">0% Cumplimiento</span><span class="lang-en">0% Compliance</span>
+              <span class="lang-es">100% Cumplimiento</span><span class="lang-en">100% Compliance</span>
             </div>
-            <div class="legend-item">
-              <div class="circle-wrap"><div class="circle-large"></div></div>
-              <span>Faltan muchos</span>
+            <div class="circle-legend">
+              <div class="legend-item">
+                <div class="circle-wrap"><div class="circle-small"></div></div>
+                <span class="lang-es">Faltan pocos</span>
+                <span class="lang-en">Few needed</span>
+              </div>
+              <div class="legend-item">
+                <div class="circle-wrap"><div class="circle-large"></div></div>
+                <span class="lang-es">Faltan muchos</span>
+                <span class="lang-en">Many needed</span>
+              </div>
             </div>
           </div>
         </div>
+        <img src="img/mapa_IDX_COBERTURA.png" class="map-image" alt="Mapa georreferenciado del Perú mostrando la cobertura. Muestra la distribución del cumplimiento de la cuota obligatoria del 5% en contratación de personas con discapacidad en entidades públicas (como municipalidades distritales, provinciales). Utiliza una escala de colores que va desde el verde intenso (100% de cumplimiento) hasta el rojo (0%). A lo largo del mapa hay una gran diversidad de tonos (naranjas, amarillos, rojos), pero los puntos verde intenso son muy escasos, evidenciando que casi nadie cumple la meta. Además, el tamaño de los círculos varía: son más grandes en proporción a la cantidad de empleados con discapacidad faltantes en dicha entidad. En la parte inferior hay un recuadro que hace zoom a Lima Metropolitana para detallar un clúster de entidades, donde también se ve esta variación de colores y tamaños, asomando apenas un par de puntos verdes.">
       </div>
-      <img src="img/mapa_IDX_COBERTURA.png" alt="Mapa de Cobertura" class="map-image">
-    </div>
 
-    <div class="map-pane" id="pane-1">
-      <div class="map-text-content">
-        <div class="map-step">Paso 2: El Talento</div>
-        <h3>Mapa de Viabilidad</h3>
-        <p>Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</p>
-        
-        <div class="map-scale-wrapper">
-          <div class="scale-bar" style="background: linear-gradient(to right, #ffffcc, #c2e699, #78c679, #31a354, #006837)"></div>
-          <div class="scale-labels">
-            <span>Sin oferta local</span>
-            <span>Alta oferta de talento</span>
+      <div class="map-pane" id="pane-1" role="tabpanel" aria-labelledby="tab-1">
+        <div class="map-text-content">
+          <div class="map-step">
+            <span class="lang-es">Paso 2: El Talento</span>
+            <span class="lang-en">Step 2: The Talent</span>
           </div>
-          <div class="circle-legend">
-            <div class="legend-item">
-              <div class="circle-wrap"><div class="circle-small"></div></div>
-              <span>Faltan pocos</span>
+          <h3>
+            <span class="lang-es">Mapa de Viabilidad</span>
+            <span class="lang-en">Viability Map</span>
+          </h3>
+          <p>
+            <span class="lang-es">Desmiente el mito de la "ausencia de talento". Muestra a las entidades públicas ubicadas en entornos donde existe una alta concentración de PcD capaces de trabajar (considerando edad productiva y niveles de discapacidad no severos).</span>
+            <span class="lang-en">Debunks the 'absence of talent' myth. Shows public entities located in environments with a high concentration of PwD capable of working (considering productive age and non-severe disability levels).</span>
+          </p>
+          
+          <div class="map-scale-wrapper" aria-hidden="true">
+            <div class="scale-bar" style="background: linear-gradient(to right, #ffffcc, #c2e699, #78c679, #31a354, #006837)"></div>
+            <div class="scale-labels">
+              <span class="lang-es">Sin oferta local</span><span class="lang-en">No local supply</span>
+              <span class="lang-es">Alta oferta de talento</span><span class="lang-en">High talent supply</span>
             </div>
-            <div class="legend-item">
-              <div class="circle-wrap"><div class="circle-large"></div></div>
-              <span>Faltan muchos</span>
+            <div class="circle-legend">
+              <div class="legend-item">
+                <div class="circle-wrap"><div class="circle-small"></div></div>
+                <span class="lang-es">Faltan pocos</span>
+                <span class="lang-en">Few needed</span>
+              </div>
+              <div class="legend-item">
+                <div class="circle-wrap"><div class="circle-large"></div></div>
+                <span class="lang-es">Faltan muchos</span>
+                <span class="lang-en">Many needed</span>
+              </div>
             </div>
           </div>
         </div>
+        <img src="img/mapa_IDX_VIABILIDAD.png" class="map-image" alt="Mapa georreferenciado del Perú mostrando la viabilidad. Muestra a las entidades públicas ubicadas en entornos con alta concentración de personas con discapacidad capaces de trabajar. Utiliza una escala de colores que va desde el crema claro (sin oferta local) hasta el verde oscuro intenso (alta oferta de talento). El mapa muestra predominantemente círculos verdes de distintos tamaños esparcidos por la costa y en las principales ciudades de la sierra, demostrando que sí existe disponibilidad de talento local de personas con discapacidad. El tamaño de los círculos varía: son más grandes en proporción a la cantidad de empleados con discapacidad faltantes en dicha entidad. En la parte inferior hay un recuadro que hace zoom a Lima Metropolitana para detallar un clúster de entidades con una densa disponibilidad de talento en toda la capital.">
       </div>
-      <img src="img/mapa_IDX_VIABILIDAD.png" alt="Mapa de Viabilidad" class="map-image">
-    </div>
 
-    <div class="map-pane" id="pane-2">
-      <div class="map-text-content">
-        <div class="map-step" style="color: var(--accent);">Paso 3: La Acción</div>
-        <h3 style="color: var(--accent);">Mapa de Prioridad</h3>
-        <p>Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</p>
-        
-        <div class="map-scale-wrapper">
-          <div class="scale-bar" style="background: linear-gradient(to right, #fee5d9, #fcae91, #fb6a4a, #de2d26, #a50f15)"></div>
-          <div class="scale-labels">
-            <span>Baja prioridad</span>
-            <span>Intervención Inmediata</span>
+      <div class="map-pane" id="pane-2" role="tabpanel" aria-labelledby="tab-2">
+        <div class="map-text-content">
+          <div class="map-step" style="color: var(--accent);">
+            <span class="lang-es">Paso 3: La Acción</span>
+            <span class="lang-en">Step 3: The Action</span>
           </div>
-          <div class="circle-legend">
-            <div class="legend-item">
-              <div class="circle-wrap"><div class="circle-small"></div></div>
-              <span>Faltan pocos</span>
+          <h3 style="color: var(--accent);">
+            <span class="lang-es">Mapa de Prioridad</span>
+            <span class="lang-en">Priority Map</span>
+          </h3>
+          <p>
+            <span class="lang-es">Combina los mapas anteriores para focalizar esfuerzos. Resalta los "puntos calientes": entidades que incumplen la cuota pero que están rodeadas de talento disponible.</span>
+            <span class="lang-en">Combines previous maps to focus efforts. Highlights 'hotspots': entities that fail the quota but are surrounded by available talent.</span>
+          </p>
+          
+          <div class="map-scale-wrapper" aria-hidden="true">
+            <div class="scale-bar" style="background: linear-gradient(to right, #fee5d9, #fcae91, #fb6a4a, #de2d26, #a50f15)"></div>
+            <div class="scale-labels">
+              <span class="lang-es">Baja prioridad</span><span class="lang-en">Low priority</span>
+              <span class="lang-es">Intervención Inmediata</span><span class="lang-en">Immediate Intervention</span>
             </div>
-            <div class="legend-item">
-              <div class="circle-wrap"><div class="circle-large"></div></div>
-              <span>Faltan muchos</span>
+            <div class="circle-legend">
+              <div class="legend-item">
+                <div class="circle-wrap"><div class="circle-small"></div></div>
+                <span class="lang-es">Faltan pocos</span>
+                <span class="lang-en">Few needed</span>
+              </div>
+              <div class="legend-item">
+                <div class="circle-wrap"><div class="circle-large"></div></div>
+                <span class="lang-es">Faltan muchos</span>
+                <span class="lang-en">Many needed</span>
+              </div>
             </div>
           </div>
         </div>
+        <img src="img/mapa_IDX_PRIORIDAD.png" class="map-image" alt="Mapa georreferenciado del Perú mostrando la prioridad de intervención. Combina los mapas anteriores para identificar estratégicamente entidades que incumplen la cuota pero sí tienen talento disponible a su alrededor. Utiliza una escala de colores que va desde el blanco rosado (baja prioridad) hasta el rojo oscuro (intervención inmediata). Se observan múltiples puntos rojos oscuros e intensos a lo largo de la costa peruana y capitales departamentales, indicando los lugares donde se debe intervenir primero porque no hay excusa para no contratar talento local. El tamaño de los círculos es más grande en proporción a la cantidad de empleados con discapacidad faltantes en dicha entidad. En la parte inferior un recuadro hace zoom a Lima Metropolitana, evidenciando una fuerte concentración de grandes círculos en máxima prioridad.">
       </div>
-      <img src="img/mapa_IDX_PRIORIDAD.png" alt="Mapa de Prioridad" class="map-image">
-    </div>
-  </div>
-</div>
-
-<div class="proposal-container">
-  
-  <h2 class="section-title">Nuestra Propuesta de Solución</h2>
-  
-  <div class="card-grid">
-    <div class="info-card">
-      <h4>El Problema y su Raíz</h4>
-      <p>El problema real no es la discapacidad, ni siquiera el incumplimiento de la cuota legal (el cual es solo un síntoma). La exclusión es estructural: el ecosistema laboral del Estado asume un trabajador "estándar", creando un entorno rígido y hostil.</p>
-      <ul>
-        <li><strong>Perfiles excluyentes:</strong> Las áreas de RR.HH. reciclan perfiles que exigen condiciones físicas o presenciales innecesarias para labores administrativas.</li>
-        <li><strong>El falso mito:</strong> Las entidades se excusan diciendo que "no hay personas con el perfil en nuestra zona". Los datos (Mapa 2) desmienten esto.</li>
-        <li><strong>Costo vs. Sanción:</strong> Prefieren no adaptar espacios porque lo ven como un gasto, sabiendo que las penalidades rara vez se ejecutan.</li>
-      </ul>
-    </div>
-
-    <div class="info-card">
-      <h4 class="green">El Cambio Esperado</h4>
-      <p>Nuestra meta es dejar de medir el "esfuerzo" administrativo y empezar a medir el impacto real y directo en la vida de las personas.</p>
-      <ul>
-        <li>Aumentar en un <strong>30% la tasa de cumplimiento</strong> en las 50 entidades públicas marcadas como de "alta prioridad" (Mapa 3) en 12 meses.</li>
-        <li>Reducir a cero la brecha de intermediación laboral en distritos donde el talento supera los cupos de la entidad pública local.</li>
-        <li>Implementar <strong>teletrabajo por defecto</strong> para al menos el 50% de los nuevos contratados en entidades con barreras arquitectónicas difíciles de subsanar.</li>
-      </ul>
     </div>
   </div>
 
-  <h2 class="section-title">Estrategia de Intermediación Focalizada</h2>
-  <p style="color: var(--muted); margin-bottom: 2rem; font-size: 1.05rem;">
-    Esta intervención ataca la raíz institucional (inercia y perfiles excluyentes) utilizando los mapas georreferenciados para tomar decisiones exactas, no genéricas.
-  </p>
-
-  <div class="action-plan">
-    <div class="action-step">
-      <h5>1. Acción Normativa</h5>
-      <p>SERVIR y CONADIS obligarán a las entidades del "Mapa de Prioridad" (rojo intenso) a rediseñar perfiles administrativos, integrando el "teletrabajo por defecto" para saltar barreras físicas.</p>
-    </div>
+  <div class="proposal-container">
     
-    <div class="action-step">
-      <h5>2. Intermediación Activa</h5>
-      <p>El Ministerio de Trabajo dejará las ferias genéricas. Desplegará "módulos de conexión" directamente en los distritos priorizados, cruzando el talento local con las vacantes municipales obligatorias.</p>
+    <h2 class="section-title">
+      <span class="lang-es">Nuestra Propuesta de Solución</span>
+      <span class="lang-en">Our Proposed Solution</span>
+    </h2>
+    
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>
+          <span class="lang-es">El Problema y su Raíz</span>
+          <span class="lang-en">The Problem and its Root</span>
+        </h4>
+        <p>
+          <span class="lang-es">El problema real no es la discapacidad, ni siquiera el incumplimiento de la cuota legal (el cual es solo un síntoma). La exclusión es estructural: el ecosistema laboral del Estado asume un trabajador "estándar", creando un entorno rígido y hostil.</span>
+          <span class="lang-en">The real problem is not the disability, nor even the failure to meet the legal quota (which is just a symptom). The exclusion is structural: the State's labor ecosystem assumes a 'standard' worker, creating a rigid and hostile environment.</span>
+        </p>
+        <ul>
+          <li>
+            <span class="lang-es"><strong>Perfiles excluyentes:</strong> Las áreas de RR.HH. reciclan perfiles que exigen condiciones físicas o presenciales innecesarias para labores administrativas.</span>
+            <span class="lang-en"><strong>Exclusionary profiles:</strong> HR departments recycle profiles demanding unnecessary physical or in-person conditions for administrative tasks.</span>
+          </li>
+          <li>
+            <span class="lang-es"><strong>El falso mito:</strong> Las entidades se excusan diciendo que "no hay personas con el perfil en nuestra zona". Los datos (Mapa 2) desmienten esto.</span>
+            <span class="lang-en"><strong>The false myth:</strong> Entities excuse themselves by saying "there are no people with the profile in our area". The data (Map 2) debunks this.</span>
+          </li>
+          <li>
+            <span class="lang-es"><strong>Costo vs. Sanción:</strong> Prefieren no adaptar espacios porque lo ven como un gasto, sabiendo que las penalidades rara vez se ejecutan.</span>
+            <span class="lang-en"><strong>Cost vs. Sanction:</strong> They prefer not to adapt spaces viewing it as an expense, knowing penalties are rarely enforced.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h4 class="green">
+          <span class="lang-es">El Cambio Esperado</span>
+          <span class="lang-en">The Expected Change</span>
+        </h4>
+        <p>
+          <span class="lang-es">Nuestra meta es dejar de medir el "esfuerzo" administrativo y empezar a medir el impacto real y directo en la vida de las personas.</span>
+          <span class="lang-en">Our goal is to stop measuring administrative "effort" and start measuring real, direct impact on people's lives.</span>
+        </p>
+        <ul>
+          <li>
+            <span class="lang-es">Aumentar en un <strong>30% la tasa de cumplimiento</strong> en las 50 entidades públicas marcadas como de "alta prioridad" (Mapa 3) en 12 meses.</span>
+            <span class="lang-en">Increase the compliance rate by <strong>30%</strong> in the 50 public entities marked as "high priority" (Map 3) within 12 months.</span>
+          </li>
+          <li>
+            <span class="lang-es">Reducir a cero la brecha de intermediación laboral en distritos donde el talento supera los cupos de la entidad pública local.</span>
+            <span class="lang-en">Reduce the labor intermediation gap to zero in districts where talent exceeds the local public entity's quotas.</span>
+          </li>
+          <li>
+            <span class="lang-es">Implementar <strong>teletrabajo por defecto</strong> para al menos el 50% de los nuevos contratados en entidades con barreras arquitectónicas difíciles de subsanar.</span>
+            <span class="lang-en">Implement <strong>telework by default</strong> for at least 50% of new hires in entities with architectural barriers difficult to fix.</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <div class="action-step">
-      <h5>3. Monitoreo Inteligente</h5>
-      <p>Transición hacia una fiscalización asistida. Se auditará exclusivamente a las entidades del "Mapa 3" para asegurar la eliminación de barreras en las contrataciones.</p>
+    <h2 class="section-title">
+      <span class="lang-es">Estrategia de Intermediación Focalizada</span>
+      <span class="lang-en">Targeted Intermediation Strategy</span>
+    </h2>
+    <p style="color: var(--muted); margin-bottom: 2rem; font-size: 1.05rem;">
+      <span class="lang-es">Esta intervención ataca la raíz institucional (inercia y perfiles excluyentes) utilizando los mapas georreferenciados para tomar decisiones exactas, no genéricas.</span>
+      <span class="lang-en">This intervention attacks the institutional root (inertia and exclusionary profiles) using georeferenced maps to make exact, not generic, decisions.</span>
+    </p>
+
+    <div class="action-plan">
+      <div class="action-step">
+        <h5>
+          <span class="lang-es">1. Acción Normativa</span>
+          <span class="lang-en">1. Regulatory Action</span>
+        </h5>
+        <p>
+          <span class="lang-es">SERVIR y CONADIS obligarán a las entidades del "Mapa de Prioridad" (rojo intenso) a rediseñar perfiles administrativos, integrando el "teletrabajo por defecto" para saltar barreras físicas.</span>
+          <span class="lang-en">SERVIR and CONADIS will force entities in the "Priority Map" (intense red) to redesign administrative profiles, integrating "telework by default" to bypass physical barriers.</span>
+        </p>
+      </div>
+      
+      <div class="action-step">
+        <h5>
+          <span class="lang-es">2. Intermediación Activa</span>
+          <span class="lang-en">2. Active Intermediation</span>
+        </h5>
+        <p>
+          <span class="lang-es">El Ministerio de Trabajo dejará las ferias genéricas. Desplegará "módulos de conexión" directamente en los distritos priorizados, cruzando el talento local con las vacantes municipales obligatorias.</span>
+          <span class="lang-en">The Ministry of Labor will drop generic job fairs. It will deploy "connection modules" directly in prioritized districts, matching local talent with mandatory municipal vacancies.</span>
+        </p>
+      </div>
+
+      <div class="action-step">
+        <h5>
+          <span class="lang-es">3. Monitoreo Inteligente</span>
+          <span class="lang-en">3. Smart Monitoring</span>
+        </h5>
+        <p>
+          <span class="lang-es">Transición hacia una fiscalización asistida. Se auditará exclusivamente a las entidades del "Mapa 3" para asegurar la eliminación de barreras en las contrataciones.</span>
+          <span class="lang-en">Transition towards assisted oversight. Only entities in "Map 3" will be exclusively audited to ensure hiring barriers are eliminated.</span>
+        </p>
+      </div>
+
+      <div class="action-step">
+        <h5>
+          <span class="lang-es">4. Sello Territorial</span>
+          <span class="lang-en">4. Territorial Seal</span>
+        </h5>
+        <p>
+          <span class="lang-es">Creación del "Sello de Territorio Inclusivo". Las entidades que cierren su brecha obtendrán este reconocimiento, brindándoles becas de SERVIR y apoyo técnico en modernización digital, incentivando a las autoridades mediante reputación positiva.</span>
+          <span class="lang-en">Creation of the "Inclusive Territory Seal". Entities closing their gap will get this recognition, granting them SERVIR scholarships and technical support for digital modernization, incentivizing authorities through positive reputation.</span>
+        </p>
+      </div>
     </div>
 
-    <div class="action-step">
-      <h5>4. Sello Territorial</h5>
-      <p>Creación del "Sello de Territorio Inclusivo". Las entidades que cierren su brecha obtendrán este reconocimiento, brindándoles becas de SERVIR y apoyo técnico en modernización digital, incentivando a las autoridades mediante reputación positiva.</p>
-    </div>
   </div>
-
-</div>
+</main>
 
 <footer id="autores-footer">
-  <p>Propuesta elaborada para la Geotón Perú 2026. <br>Análisis realizado con datos publicados por CONADIS / GEO PERÚ, bajo la Ley de Datos Abiertos del Gobierno Peruano.</p>
+  <p>
+    <span class="lang-es">Propuesta elaborada para la Geotón Perú 2026.<br>Análisis realizado con datos publicados por CONADIS / GEO PERÚ, bajo la Ley de Datos Abiertos del Gobierno Peruano.</span>
+    <span class="lang-en">Proposal developed for Geothon Peru 2026. <br>Analysis conducted with data published by CONADIS / GEO PERU, under the Peruvian Government's Open Data Law.</span>
+  </p>
   
   <div class="footer-links">
-    <a href="https://www.linkedin.com/in/coco-bnl/" class="simple-link" target="_blank">💼 Coco Benel</a>
-    <a href="https://www.linkedin.com/in/jalegres/" class="simple-link" target="_blank">💼 Junior Alegre</a>
-    <a href="https://www.linkedin.com/in/melvin-peinado-b496071ab/" class="simple-link" target="_blank">💼 Melvin Peinado</a>
-    <a href="https://github.com/cocobnl/geoinclusion" class="simple-link" target="_blank">💻 Repositorio GitHub</a>
+    <a href="https://www.linkedin.com/in/coco-bnl/" class="simple-link" target="_blank" aria-label="LinkedIn de Coco Benel">
+      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Coco Benel
+    </a>
+    <a href="https://www.linkedin.com/in/jalegres/" class="simple-link" target="_blank" aria-label="LinkedIn de Junior Alegre">
+      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Junior Alegre
+    </a>
+    <a href="https://www.linkedin.com/in/melvin-peinado-b496071ab/" class="simple-link" target="_blank" aria-label="LinkedIn de Melvin Peinado">
+      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Melvin Peinado
+    </a>
+    <a href="https://github.com/cocobnl/geoinclusion" class="simple-link" target="_blank" aria-label="Ir al Repositorio GitHub del proyecto">
+      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <span class="lang-es">Repositorio</span>
+      <span class="lang-en">Repository</span>
+    </a>
   </div>
 </footer>
 
 <script>
+  // ACCESSIBILITY & CAROUSEL LOGIC
   const tabs = document.querySelectorAll('.map-tab');
   const panes = document.querySelectorAll('.map-pane');
   const interactiveSection = document.getElementById('interactiveMap');
+  const pauseBtn = document.getElementById('pauseBtn');
   
   let currentIndex = 0;
   let carouselInterval = null;
   const TIME_PER_SLIDE = 8000;
+  let isPausedByUser = false;
 
   function showMap(index) {
-    tabs.forEach(tab => tab.classList.remove('active'));
+    tabs.forEach((tab, i) => {
+      tab.classList.remove('active');
+      tab.setAttribute('aria-selected', 'false');
+      tab.setAttribute('tabindex', '-1');
+    });
     panes.forEach(pane => pane.classList.remove('active'));
     
     tabs[index].classList.add('active');
+    tabs[index].setAttribute('aria-selected', 'true');
+    tabs[index].setAttribute('tabindex', '0');
     panes[index].classList.add('active');
     currentIndex = index;
   }
@@ -614,7 +865,7 @@
   }
 
   function startCarousel() {
-    if (!carouselInterval) {
+    if (!carouselInterval && !isPausedByUser) {
       carouselInterval = setInterval(nextMap, TIME_PER_SLIDE);
     }
   }
@@ -624,16 +875,68 @@
     carouselInterval = null;
   }
 
-  interactiveSection.addEventListener('mouseenter', stopCarousel);
-  interactiveSection.addEventListener('mouseleave', startCarousel);
+  // Lógica Botón de Pausa Accesible
+  pauseBtn.addEventListener('click', () => {
+    isPausedByUser = !isPausedByUser;
+    if (isPausedByUser) {
+      stopCarousel();
+      pauseBtn.setAttribute('aria-pressed', 'true');
+      pauseBtn.setAttribute('aria-label', 'Reanudar rotación automática');
+      pauseBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    } else {
+      startCarousel();
+      pauseBtn.setAttribute('aria-pressed', 'false');
+      pauseBtn.setAttribute('aria-label', 'Pausar rotación automática');
+      pauseBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+    }
+  });
 
+  // Eventos de ratón
+  interactiveSection.addEventListener('mouseenter', stopCarousel);
+  interactiveSection.addEventListener('mouseleave', () => {
+    if(!isPausedByUser) startCarousel();
+  });
+
+  // Eventos de teclado y clic en pestañas
   tabs.forEach((tab, index) => {
-    tab.addEventListener('mouseenter', () => {
+    tab.addEventListener('click', () => {
       showMap(index);
+    });
+    
+    // Soporte para navegar pestañas con teclado (Enter o Espacio)
+    tab.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showMap(index);
+      }
     });
   });
 
   startCarousel();
+
+  // LANGUAGE TOGGLE LOGIC
+  const langBtns = document.querySelectorAll('.lang-btn');
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      langBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      
+      const lang = btn.getAttribute('data-lang');
+      if (lang === 'en') {
+        document.body.classList.add('en');
+        document.documentElement.lang = 'en';
+      } else {
+        document.body.classList.remove('en');
+        document.documentElement.lang = 'es';
+      }
+
+      // Reiniciar aria-pressed en el otro botón
+      langBtns.forEach(b => {
+        if(b !== btn) b.setAttribute('aria-pressed', 'false');
+      });
+    });
+  });
 </script>
 
 </body>
